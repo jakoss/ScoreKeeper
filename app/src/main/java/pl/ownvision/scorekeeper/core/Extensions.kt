@@ -2,6 +2,7 @@ package pl.ownvision.scorekeeper.core
 
 import android.app.Activity
 import android.content.Context
+import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
 import android.widget.Toast
 
@@ -10,6 +11,10 @@ import android.widget.Toast
  */
 
 fun Context.toast(text: String, duration: Int = Toast.LENGTH_LONG) = Toast.makeText(this, text, duration).show()
+
+fun Activity.snackbar(@StringRes text: Int, duration: Int = Snackbar.LENGTH_LONG) {
+    snackbar(getString(text), duration)
+}
 
 fun Activity.snackbar(text: String, duration: Int = Snackbar.LENGTH_LONG) {
     val view = this.findViewById(android.R.id.content)

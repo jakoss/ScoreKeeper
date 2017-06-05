@@ -1,6 +1,7 @@
 package pl.ownvision.scorekeeper.core
 
 import dagger.Component
+import pl.ownvision.scorekeeper.views.activities.GameActivity
 import pl.ownvision.scorekeeper.views.activities.MainActivity
 import javax.inject.Singleton
 
@@ -14,5 +15,6 @@ import javax.inject.Singleton
 ))
 interface AppComponent {
     fun inject(activity: BaseActivity)
-    fun inject(mainActivity: MainActivity)
+    fun inject(activity: MainActivity)
+    fun inject(activity: GameActivity)
 }

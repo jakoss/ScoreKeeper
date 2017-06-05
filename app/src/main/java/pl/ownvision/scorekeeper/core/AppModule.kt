@@ -4,6 +4,8 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import io.realm.Realm
+import io.realm.internal.RealmNotifier
+import pl.ownvision.scorekeeper.repositories.GameRepository
 import javax.inject.Singleton
 
 /**
@@ -20,4 +22,10 @@ class AppModule(val app: App){
     @Provides
     @Singleton
     fun provideApp(): App = app
+
+    @Provides
+    fun provideRealm(): Realm = Realm.getDefaultInstance()
+
+    @Provides
+    fun provideGameRepository(realm: Realm): GameRepository = GameRepository(realm)
 }

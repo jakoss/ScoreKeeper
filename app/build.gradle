@@ -66,6 +66,10 @@ dependencies {
     compile 'com.afollestad.material-dialogs:core:0.9.4.5'
 
     compile 'com.elvishew:xlog:1.3.0'
+
+    // https://github.com/MarcinMoskala/ActivityStarter
+    compile 'com.github.marcinmoskala.activitystarter:activitystarter:0.50'
+    kapt 'com.github.marcinmoskala.activitystarter:activitystarter-compiler:0.50'
 }
 
 kapt {

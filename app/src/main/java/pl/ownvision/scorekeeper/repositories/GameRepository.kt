@@ -5,19 +5,24 @@ import io.realm.Realm
 import io.realm.Sort
 import pl.ownvision.scorekeeper.exceptions.*
 import pl.ownvision.scorekeeper.models.Game
+import javax.inject.Inject
 
 /**
  * Created by jakub on 01.06.2017.
  */
 
 class GameRepository(
-        private val realm: Realm
-) {
+        realm: Realm
+): BaseRepository(realm) {
     fun getAllGames(): List<Game> {
         val results = realm.where(Game::class.java)
                 .findAllSorted("createdAt", Sort.DESCENDING)
         return realm.copyFromRealm(results)
     }
+
+    fun getGame(id: String): Game = realm.where(Game::class.java)
+            .equalTo("id", id)
+            .findFirst()
 
     fun createGame(name: String): Game {
         val game = Game()

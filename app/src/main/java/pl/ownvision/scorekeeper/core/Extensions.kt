@@ -4,7 +4,9 @@ import android.app.Activity
 import android.content.Context
 import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
+import android.text.InputType
 import android.widget.Toast
+import com.afollestad.materialdialogs.MaterialDialog
 
 /**
  * Created by jakub on 31.05.2017.
@@ -22,4 +24,15 @@ fun Activity.snackbar(text: String, duration: Int = Snackbar.LENGTH_LONG) {
 
     snackBar.setAction("OK") { snackBar.dismiss() }
     snackBar.show()
+}
+
+fun Activity.showInputDialog(@StringRes title: Int, @StringRes positive: Int, placeholder: String, value: String?, callback: (input: CharSequence) -> Unit) {
+    MaterialDialog.Builder(this)
+            .title(title)
+            .inputType(InputType.TYPE_CLASS_TEXT)
+            .input(placeholder, value, { _, input ->
+                callback(input)
+            })
+            .positiveText(positive)
+            .show()
 }

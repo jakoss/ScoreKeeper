@@ -2,25 +2,20 @@ package pl.ownvision.scorekeeper.views.activities
 
 import android.databinding.ObservableArrayList
 import android.os.Bundle
-import android.support.annotation.StringRes
 import android.support.v7.widget.LinearLayoutManager
-import com.github.nitrico.lastadapter.BR
-import com.github.nitrico.lastadapter.LastAdapter
-import pl.ownvision.scorekeeper.R
-import pl.ownvision.scorekeeper.core.App
-import pl.ownvision.scorekeeper.core.BaseActivity
-import javax.inject.Inject
-import kotlinx.android.synthetic.main.activity_main.*
-import pl.ownvision.scorekeeper.databinding.ItemGameLayoutBinding
-import pl.ownvision.scorekeeper.models.Game
-import com.afollestad.materialdialogs.MaterialDialog
-import android.text.InputType
 import android.view.View
 import android.widget.PopupMenu
 import com.elvishew.xlog.XLog
-import pl.ownvision.scorekeeper.core.snackbar
-import pl.ownvision.scorekeeper.exceptions.*
+import com.github.nitrico.lastadapter.BR
+import com.github.nitrico.lastadapter.LastAdapter
+import kotlinx.android.synthetic.main.activity_main.*
+import pl.ownvision.scorekeeper.R
+import pl.ownvision.scorekeeper.core.*
+import pl.ownvision.scorekeeper.databinding.ItemGameLayoutBinding
+import pl.ownvision.scorekeeper.exceptions.ValidationException
+import pl.ownvision.scorekeeper.models.Game
 import pl.ownvision.scorekeeper.repositories.GameRepository
+import javax.inject.Inject
 
 
 class MainActivity : BaseActivity() {
@@ -127,16 +122,5 @@ class MainActivity : BaseActivity() {
                 XLog.e("Error rename game", e)
             }
         }
-    }
-
-    fun showInputDialog(@StringRes title: Int, @StringRes positive: Int, placeholder: String, value: String?, callback: (input: CharSequence) -> Unit) {
-        MaterialDialog.Builder(this)
-                .title(title)
-                .inputType(InputType.TYPE_CLASS_TEXT)
-                .input(placeholder, value, { _, input ->
-                    callback(input)
-                })
-                .positiveText(positive)
-                .show()
     }
 }

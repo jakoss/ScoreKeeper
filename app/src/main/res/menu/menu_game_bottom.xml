@@ -1,15 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:title="@string/runds"
         android:id="@+id/menu_game_rounds"
+        android:checkable="true"
+        android:checked="true"
         android:icon="@drawable/ic_games"/>
 
     <item android:title="@string/players"
         android:id="@+id/menu_game_players"
+        android:checkable="true"
         android:icon="@drawable/ic_players"/>
 
     <item android:title="@string/stats"
         android:id="@+id/menu_game_stats"
+        android:checkable="true"
         android:icon="@drawable/ic_stats"/>
 </menu>

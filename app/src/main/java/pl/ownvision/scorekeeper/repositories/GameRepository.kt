@@ -1,19 +1,20 @@
 package pl.ownvision.scorekeeper.repositories
 
+import android.content.Context
 import io.realm.Case
 import io.realm.Realm
 import io.realm.Sort
+import pl.ownvision.scorekeeper.R
 import pl.ownvision.scorekeeper.exceptions.*
-import pl.ownvision.scorekeeper.models.Game
-import javax.inject.Inject
+import pl.ownvision.scorekeeper.models.*
 
 /**
  * Created by jakub on 01.06.2017.
  */
 
 class GameRepository(
-        realm: Realm
-): BaseRepository(realm) {
+        realm: Realm, context: Context
+): BaseRepository(realm, context) {
     fun getAllGames(): List<Game> {
         val results = realm.where(Game::class.java)
                 .findAllSorted("createdAt", Sort.DESCENDING)
@@ -59,10 +60,10 @@ class GameRepository(
 
     private fun validateGame(game: Game){
         if(game.name.isBlank()){
-            throw ValidationException("Nazwa nie może być pusta")
+            throw ValidationException(context.getString(R.string.validation_name_cannot_be_empty))
         }
         if(nameExists(game.name)){
-            throw ValidationException("Nazwa jest już zajęta")
+            throw ValidationException(context.getString(R.string.validation_name_already_taken))
         }
     }
 }

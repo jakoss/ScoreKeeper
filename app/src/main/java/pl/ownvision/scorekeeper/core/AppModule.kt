@@ -6,6 +6,7 @@ import dagger.Provides
 import io.realm.Realm
 import io.realm.internal.RealmNotifier
 import pl.ownvision.scorekeeper.repositories.GameRepository
+import pl.ownvision.scorekeeper.repositories.PlayerRepository
 import javax.inject.Singleton
 
 /**
@@ -27,5 +28,8 @@ class AppModule(val app: App){
     fun provideRealm(): Realm = Realm.getDefaultInstance()
 
     @Provides
-    fun provideGameRepository(realm: Realm): GameRepository = GameRepository(realm)
+    fun provideGameRepository(realm: Realm, context: Context): GameRepository = GameRepository(realm, context)
+
+    @Provides
+    fun providePlayerRepository(realm: Realm, context: Context): PlayerRepository = PlayerRepository(realm, context)
 }

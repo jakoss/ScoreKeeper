@@ -14,8 +14,6 @@ import pl.ownvision.scorekeeper.core.*
 import pl.ownvision.scorekeeper.databinding.ItemGameLayoutBinding
 import pl.ownvision.scorekeeper.exceptions.ValidationException
 import pl.ownvision.scorekeeper.models.Game
-import pl.ownvision.scorekeeper.repositories.GameRepository
-import javax.inject.Inject
 
 
 class MainActivity : BaseActivity() {
@@ -64,7 +62,7 @@ class MainActivity : BaseActivity() {
             }catch (e: ValidationException){
                 this.snackbar(e.error)
             }catch (e: Exception){
-                this.snackbar(R.string.error_creating_game)
+                this.snackbar(R.string.error_creating)
                 XLog.e("Error creating game", e)
             }
         }
@@ -72,14 +70,14 @@ class MainActivity : BaseActivity() {
 
     fun displayPopup(view: View, game: Game){
         val popup = PopupMenu(view.context, view)
-        popup.inflate(R.menu.menu_game_item)
+        popup.inflate(R.menu.menu_standard_item)
         popup.setOnMenuItemClickListener {
             when (it.itemId) {
-                R.id.menu_game_remove -> {
+                R.id.menu_standard_remove -> {
                     removeGame(game)
                     true
                 }
-                R.id.menu_game_rename -> {
+                R.id.menu_standard_rename -> {
                     renameGame(game)
                     true
                 }
@@ -95,7 +93,7 @@ class MainActivity : BaseActivity() {
             gameRepository.removeGame(game)
             games.remove(game)
         }catch (e: Exception){
-            this.snackbar(R.string.error_deleting_game)
+            this.snackbar(R.string.error_deleting)
             XLog.e("Error removing game", e)
         }
     }
@@ -109,7 +107,7 @@ class MainActivity : BaseActivity() {
             }catch (e: ValidationException){
                 this.snackbar(e.error)
             }catch (e: Exception){
-                this.snackbar(R.string.error_renaming_game)
+                this.snackbar(R.string.error_renaming)
                 XLog.e("Error rename game", e)
             }
         }

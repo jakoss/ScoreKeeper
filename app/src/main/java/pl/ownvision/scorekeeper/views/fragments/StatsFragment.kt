@@ -21,11 +21,6 @@ class StatsFragment : BaseFragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val game = gameRepository.getGame(gameId)
-
-        fab.setOnClickListener {
-            activity.snackbar(game.name)
-        }
     }
 
     override fun onStart() {

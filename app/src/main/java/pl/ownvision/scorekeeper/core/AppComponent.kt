@@ -5,6 +5,7 @@ import pl.ownvision.scorekeeper.views.activities.BaseActivity
 import pl.ownvision.scorekeeper.views.activities.GameActivity
 import pl.ownvision.scorekeeper.views.activities.MainActivity
 import pl.ownvision.scorekeeper.views.fragments.BaseFragment
+import pl.ownvision.scorekeeper.views.fragments.PlayersFragment
 import pl.ownvision.scorekeeper.views.fragments.RoundsFragment
 import javax.inject.Singleton
 
@@ -22,4 +23,5 @@ interface AppComponent {
     fun inject(activity: GameActivity)
 
     fun inject(fragment: BaseFragment)
+    fun inject(fragment: PlayersFragment)
 }

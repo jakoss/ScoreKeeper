@@ -2,12 +2,11 @@
     <string name="app_name">Score Keeper</string>
 
     <!-- ERRORS -->
-    <string name="error_creating_game">Błąd podczas tworzenia gry</string>
-    <string name="error_deleting_game">Błąd podczas usuwania gry</string>
-    <string name="error_renaming_game">Błąd podczas zmiany nazwy gry</string>
+    <string name="error_creating">Błąd podczas tworzenia</string>
+    <string name="error_deleting">Błąd podczas usuwania</string>
+    <string name="error_renaming">Błąd podczas zmiany nazwy</string>
 
     <!-- SHARED -->
-    <string name="new_game">Nowa gra</string>
     <string name="name_placeholder">Nazwa…</string>
     <string name="create">Stwórz</string>
     <string name="rename">Zmień nazwę</string>
@@ -16,4 +15,12 @@
     <string name="players">Gracze</string>
     <string name="runds">Rundy</string>
     <string name="stats">Statystyki</string>
+
+    <!-- GAME -->
+    <string name="new_game">Nowa gra</string>
+
+    <!-- PLAYERS -->
+    <string name="new_player">Nowy gracz</string>
+    <string name="validation_name_cannot_be_empty">Nazwa nie może być pusta</string>
+    <string name="validation_name_already_taken">Nazwa jest już zajęta</string>
 </resources>

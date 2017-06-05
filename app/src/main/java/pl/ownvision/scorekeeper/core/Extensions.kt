@@ -4,9 +4,12 @@ import android.app.Activity
 import android.content.Context
 import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
+import android.support.v4.app.Fragment
 import android.text.InputType
 import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
+import com.tapadoo.alerter.Alerter
+import pl.ownvision.scorekeeper.R
 
 /**
  * Created by jakub on 31.05.2017.
@@ -35,4 +38,19 @@ fun Activity.showInputDialog(@StringRes title: Int, @StringRes positive: Int, pl
             })
             .positiveText(positive)
             .show()
+}
+
+fun Activity.alert(title: String?, text: String) {
+    if(title != null){
+        Alerter.create(this)
+                .setTitle(title)
+                .setText(text)
+                .setBackgroundColor(R.color.colorPrimary)
+                .show()
+    }else {
+        Alerter.create(this)
+                .setText(text)
+                .setBackgroundColor(R.color.colorPrimary)
+                .show()
+    }
 }

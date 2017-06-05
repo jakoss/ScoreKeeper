@@ -4,22 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="pl.ownvision.scorekeeper.views.activities.MainActivity">
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <include layout="@layout/include_appbar"
-            android:id="@+id/toolbar_include" />
+    tools:context="pl.ownvision.scorekeeper.views.fragments.RoundsFragment">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/games_list"
+            android:id="@+id/rounds_list"
             android:scrollbars="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

@@ -2,12 +2,11 @@ package pl.ownvision.scorekeeper.views.activities
 
 import activitystarter.Arg
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_game.*
 import pl.ownvision.scorekeeper.R
 import pl.ownvision.scorekeeper.core.App
-import pl.ownvision.scorekeeper.core.BaseActivity
-import pl.ownvision.scorekeeper.core.snackbar
 import pl.ownvision.scorekeeper.repositories.GameRepository
+import pl.ownvision.scorekeeper.views.fragments.RoundsFragmentStarter
 import javax.inject.Inject
 
 
@@ -15,21 +14,23 @@ class GameActivity : BaseActivity() {
 
     @Arg lateinit var gameId: String
 
-    @Inject lateinit var application: App
-    @Inject lateinit var gameRepository: GameRepository
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        App.appComponent.inject(this)
         setContentView(R.layout.activity_game)
-        setSupportActionBar(toolbar)
+        setToolbar(toolbar_include)
 
         val game = gameRepository.getGame(gameId)
         supportActionBar!!.title = game.name
 
-        fab.setOnClickListener {
-            // TODO : Create new round
-            this.snackbar(game.id)
-        }
+        setupFragment(savedInstanceState)
+    }
+
+    fun setupFragment(savedInstanceState: Bundle?){
+        if(savedInstanceState != null) return
+        val roundsFragment = RoundsFragmentStarter.newInstance(gameId)
+        supportFragmentManager
+                .beginTransaction()
+                .add(R.id.fragment_container, roundsFragment)
+                .commit()
     }
 }

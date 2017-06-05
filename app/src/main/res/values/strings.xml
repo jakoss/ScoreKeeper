@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">Score Keeper</string>
 
+    <!-- ERRORS -->
+    <string name="error_creating_game">Błąd podczas tworzenia gry</string>
+    <string name="error_deleting_game">Błąd podczas usuwania gry</string>
+    <string name="error_renaming_game">Błąd podczas zmiany nazwy gry</string>
+
     <!-- SHARED -->
     <string name="new_game">Nowa gra</string>
     <string name="name_placeholder">Nazwa…</string>
@@ -8,9 +13,7 @@
     <string name="rename">Zmień nazwę</string>
     <string name="save">Zapisz</string>
     <string name="delete">Usuń</string>
-
-    <!-- ERRORS -->
-    <string name="error_creating_game">Błąd podczas tworzenia gry</string>
-    <string name="error_deleting_game">Błąd podczas usuwania gry</string>
-    <string name="error_renaming_game">Błąd podczas zmiany nazwy gry</string>
+    <string name="players">Gracze</string>
+    <string name="runds">Rundy</string>
+    <string name="stats">Statystyki</string>
 </resources>

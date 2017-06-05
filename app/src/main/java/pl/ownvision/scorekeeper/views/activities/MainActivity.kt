@@ -20,18 +20,14 @@ import javax.inject.Inject
 
 class MainActivity : BaseActivity() {
 
-    @Inject lateinit var application: App
-    @Inject lateinit var gameRepository: GameRepository
-
     val games = ObservableArrayList<Game>()
     lateinit var lastAdapter: LastAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        App.appComponent.inject(this)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
+        setToolbar(toolbar_include)
 
         fab.setOnClickListener {
             createNewGame()
@@ -60,11 +56,6 @@ class MainActivity : BaseActivity() {
         games.addAll(gameRepository.getAllGames())
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        gameRepository.closeRealm()
-    }
-
     fun createNewGame(){
         showInputDialog(R.string.new_game, R.string.create, getString(R.string.name_placeholder), null) {input ->
             try {
@@ -81,7 +72,7 @@ class MainActivity : BaseActivity() {
 
     fun displayPopup(view: View, game: Game){
         val popup = PopupMenu(view.context, view)
-        popup.inflate(R.menu.menu_game)
+        popup.inflate(R.menu.menu_game_item)
         popup.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.menu_game_remove -> {

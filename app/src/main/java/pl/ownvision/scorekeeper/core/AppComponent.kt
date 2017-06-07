@@ -1,12 +1,8 @@
 package pl.ownvision.scorekeeper.core
 
 import dagger.Component
-import pl.ownvision.scorekeeper.views.activities.BaseActivity
-import pl.ownvision.scorekeeper.views.activities.GameActivity
-import pl.ownvision.scorekeeper.views.activities.MainActivity
-import pl.ownvision.scorekeeper.views.fragments.BaseFragment
-import pl.ownvision.scorekeeper.views.fragments.PlayersFragment
-import pl.ownvision.scorekeeper.views.fragments.RoundsFragment
+import pl.ownvision.scorekeeper.views.activities.*
+import pl.ownvision.scorekeeper.views.fragments.*
 import javax.inject.Singleton
 
 /**
@@ -24,4 +20,5 @@ interface AppComponent {
 
     fun inject(fragment: BaseFragment)
     fun inject(fragment: PlayersFragment)
+    fun inject(fragment: ScoreFragment)
 }

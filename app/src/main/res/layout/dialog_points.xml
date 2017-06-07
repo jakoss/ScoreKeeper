@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Gracz"
+        android:id="@+id/dialog_points_player"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/dialog_points_ll_add"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:tag="1"
+            android:id="@+id/dialog_points_add_1"
+            android:text="+1"/>
+
+        <Button
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:tag="5"
+            android:id="@+id/dialog_points_add_5"
+            android:text="+5"/>
+
+        <Button
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:tag="10"
+            android:id="@+id/dialog_points_add_10"
+            android:text="+10"/>
+
+        <Button
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:tag="25"
+            android:id="@+id/dialog_points_add_25"
+            android:text="+25"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/dialog_points_ll_sub"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/dialog_points_sub_1"
+            android:tag="-1"
+            android:text="-1"/>
+
+        <Button
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:tag="-5"
+            android:id="@+id/dialog_points_sub_5"
+            android:text="-5"/>
+
+        <Button
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:tag="-10"
+            android:id="@+id/dialog_points_sub_10"
+            android:text="-10"/>
+
+        <Button
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:tag="-25"
+            android:id="@+id/dialog_points_sub_25"
+            android:text="-25"/>
+    </LinearLayout>
+
+    <EditText
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:text="0"
+        android:id="@+id/dialog_points_input"
+        android:inputType="numberSigned"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

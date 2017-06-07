@@ -1,9 +1,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="@string/score"
+        android:id="@+id/menu_game_score"
+        android:checkable="true"
+        android:checked="true"
+        android:icon="@drawable/ic_score" />
 
     <item android:title="@string/runds"
         android:id="@+id/menu_game_rounds"
         android:checkable="true"
-        android:checked="true"
         android:icon="@drawable/ic_games"/>
 
     <item android:title="@string/players"

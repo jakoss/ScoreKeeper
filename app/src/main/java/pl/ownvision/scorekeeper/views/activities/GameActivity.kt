@@ -6,9 +6,7 @@ import kotlinx.android.synthetic.main.activity_game.*
 import pl.ownvision.scorekeeper.R
 import pl.ownvision.scorekeeper.core.App
 import pl.ownvision.scorekeeper.repositories.GameRepository
-import pl.ownvision.scorekeeper.views.fragments.PlayersFragmentStarter
-import pl.ownvision.scorekeeper.views.fragments.RoundsFragmentStarter
-import pl.ownvision.scorekeeper.views.fragments.StatsFragmentStarter
+import pl.ownvision.scorekeeper.views.fragments.*
 import javax.inject.Inject
 
 
@@ -28,7 +26,8 @@ class GameActivity : BaseActivity() {
 
         bottom_navigation.setOnNavigationItemSelectedListener { item ->
             val fragment = when (item.itemId) {
-                R.id.menu_game_rounds -> RoundsFragmentStarter.newInstance(gameId)
+                R.id.menu_game_score -> ScoreFragmentStarter.newInstance(gameId)
+                R.id.menu_game_rounds -> MovesFragmentStarter.newInstance(gameId)
                 R.id.menu_game_players -> PlayersFragmentStarter.newInstance(gameId)
                 R.id.menu_game_stats -> StatsFragmentStarter.newInstance(gameId)
                 else -> null
@@ -43,10 +42,19 @@ class GameActivity : BaseActivity() {
 
     fun setupFragment(savedInstanceState: Bundle?){
         if(savedInstanceState != null) return
-        val roundsFragment = RoundsFragmentStarter.newInstance(gameId)
+        val scoreFragment = ScoreFragmentStarter.newInstance(gameId)
         supportFragmentManager
                 .beginTransaction()
-                .add(R.id.fragment_container, roundsFragment)
+                .add(R.id.fragment_container, scoreFragment)
                 .commit()
+    }
+
+    fun redirectToPlayers() {
+        val fragment = PlayersFragmentStarter.newInstance(gameId)
+        supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit()
+        bottom_navigation.selectedItemId = R.id.menu_game_players
     }
 }

@@ -73,7 +73,7 @@ class PlayersFragment : BaseFragment() {
 
         if(!playerRepository.canUpdate()) {
             fab.hide()
-            activity.alert(null, "Dodawanie i usuwanie dostępne tylko przed startem rozgrywki")
+            activity.alert("Dodawanie i usuwanie dostępne tylko przed startem rozgrywki")
         }
     }
 

@@ -22,7 +22,7 @@ open class Game (
         var createdAt: Date = Date(),
 
         var players: RealmList<Player> = RealmList(),
-        var rounds: RealmList<Round> = RealmList(),
+        var moves: RealmList<Move> = RealmList(),
 
         // stable id for LastAdapter
         @Ignore

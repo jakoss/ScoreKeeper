@@ -54,7 +54,7 @@ class PlayerRepository(
 
     fun canUpdate(): Boolean {
         setGame()
-        return game.rounds.count() == 0
+        return game.moves.count() == 0
     }
 
     private fun validatePlayer(player: Player){

@@ -40,17 +40,17 @@ fun Activity.showInputDialog(@StringRes title: Int, @StringRes positive: Int, pl
             .show()
 }
 
-fun Activity.alert(title: String?, text: String) {
-    if(title != null){
-        Alerter.create(this)
-                .setTitle(title)
-                .setText(text)
-                .setBackgroundColor(R.color.colorPrimary)
-                .show()
-    }else {
-        Alerter.create(this)
-                .setText(text)
-                .setBackgroundColor(R.color.colorPrimary)
-                .show()
-    }
+fun Activity.alertWithTitle(title: String, text: String) {
+    Alerter.create(this)
+            .setTitle(title)
+            .setText(text)
+            .setBackgroundColor(R.color.colorPrimary)
+            .show()
+}
+
+fun Activity.alert(text: String) {
+    Alerter.create(this)
+            .setText(text)
+            .setBackgroundColor(R.color.colorPrimary)
+            .show()
 }

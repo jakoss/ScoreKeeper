@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import pl.ownvision.scorekeeper.core.App
 import pl.ownvision.scorekeeper.repositories.GameRepository
+import pl.ownvision.scorekeeper.views.activities.GameActivity
 import javax.inject.Inject
 
 /**
@@ -24,5 +25,10 @@ open class BaseFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         gameRepository.closeRealm()
+    }
+
+    protected fun getGameActivity(): GameActivity {
+        if(activity !is GameActivity) throw RuntimeException("Bad GameActivity reference")
+        return activity as GameActivity
     }
 }

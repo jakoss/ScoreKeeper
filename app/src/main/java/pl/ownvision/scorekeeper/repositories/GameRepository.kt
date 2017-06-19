@@ -21,9 +21,12 @@ class GameRepository(
         return realm.copyFromRealm(results)
     }
 
-    fun getGame(id: String): Game = realm.where(Game::class.java)
-            .equalTo("id", id)
-            .findFirst()
+    fun getGame(id: String): Game {
+        val game = realm.where(Game::class.java)
+                .equalTo("id", id)
+                .findFirst()
+        return realm.copyFromRealm(game)
+    }
 
     fun createGame(name: String): Game {
         val game = Game()

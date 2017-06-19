@@ -30,4 +30,7 @@
     <string name="move">Ruch</string>
     <string name="cancel">Anuluj</string>
     <string name="add">Dodaj</string>
+    <string name="remove_confirm">Czy na pewno chcesz usunąć?</string>
+    <string name="yes">tak</string>
+    <string name="no">nie</string>
 </resources>

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.PopupMenu
+import com.afollestad.materialdialogs.MaterialDialog
 import com.elvishew.xlog.XLog
 import com.github.nitrico.lastadapter.BR
 import com.github.nitrico.lastadapter.LastAdapter
@@ -38,7 +39,7 @@ class MainActivity : BaseActivity() {
                 .map<Game, ItemGameLayoutBinding>(R.layout.item_game_layout) {
                     onClick {
                         val game = it.binding.game ?: return@onClick
-                        GameActivityStarter.start(application, game.id)
+                        GameActivityStarter.start(this@MainActivity, game.id)
                     }
 
                     onBind {
@@ -88,21 +89,30 @@ class MainActivity : BaseActivity() {
     }
 
     fun removeGame(game: Game){
-        // TODO : confirm dialog
-        try {
-            gameRepository.removeGame(game)
-            games.remove(game)
-        }catch (e: Exception){
-            this.snackbar(R.string.error_deleting)
-            XLog.e("Error removing game", e)
-        }
+        MaterialDialog.Builder(this)
+                .title(R.string.remove_confirm)
+                .positiveText(R.string.yes)
+                .negativeText(R.string.no)
+                .onPositive { _, _ ->
+                    try {
+                        gameRepository.removeGame(game)
+                        games.remove(game)
+                    }catch (e: Exception){
+                        this.snackbar(R.string.error_deleting)
+                        XLog.e("Error removing game", e)
+                    }
+                }
+                .show()
     }
 
     fun renameGame(game: Game){
-        showInputDialog(R.string.rename, R.string.save, getString(R.string.name_placeholder), game.name) {input ->
+        val updatedGame = gameRepository.getGame(game.id)
+        val index = games.indexOfFirst { it.id == game.id }
+        games[index] = updatedGame
+        showInputDialog(R.string.rename, R.string.save, getString(R.string.name_placeholder), updatedGame.name) {input ->
             try {
-                game.name = input.toString()
-                gameRepository.updateGame(game)
+                updatedGame.name = input.toString()
+                gameRepository.updateGame(updatedGame)
                 lastAdapter.notifyDataSetChanged()
             }catch (e: ValidationException){
                 this.snackbar(e.error)

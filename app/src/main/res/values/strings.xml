@@ -15,22 +15,23 @@
     <string name="players">Gracze</string>
     <string name="runds">Ruchy</string>
     <string name="stats">Statystyki</string>
-
-    <!-- GAME -->
-    <string name="new_game">Nowa gra</string>
-
-    <!-- PLAYERS -->
-    <string name="new_player">Nowy gracz</string>
-    <string name="validation_name_cannot_be_empty">Nazwa nie może być pusta</string>
-    <string name="validation_name_already_taken">Nazwa jest już zajęta</string>
-    <string name="score">Wynik</string>
-    <string name="no_moves">Nie wykonano żadnych ruchów</string>
-    <string name="no_players_prompt">Brak graczy\nDodaj nowego gracza na zakładce graczy</string>
-    <string name="add_new_player_prompt_button">Dodaj nowego gracza</string>
-    <string name="move">Ruch</string>
     <string name="cancel">Anuluj</string>
     <string name="add">Dodaj</string>
     <string name="remove_confirm">Czy na pewno chcesz usunąć?</string>
     <string name="yes">tak</string>
     <string name="no">nie</string>
+
+    <!-- GAME -->
+    <string name="new_game">Nowa gra</string>
+    <string name="move">Ruch</string>
+    <string name="score">Wynik</string>
+    <string name="no_moves">Nie wykonano żadnych ruchów</string>
+    <string name="move_count">"Ilość wykonanych ruchów: %1$d"</string>
+
+    <!-- PLAYERS -->
+    <string name="new_player">Nowy gracz</string>
+    <string name="validation_name_cannot_be_empty">Nazwa nie może być pusta</string>
+    <string name="validation_name_already_taken">Nazwa jest już zajęta</string>
+    <string name="no_players_prompt">Brak graczy\nDodaj nowego gracza na zakładce graczy</string>
+    <string name="add_new_player_prompt_button">Dodaj nowego gracza</string>
 </resources>

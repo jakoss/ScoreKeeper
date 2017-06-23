@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.TextView
 import kotlinx.android.synthetic.main.fragment_score.*
 import pl.ownvision.scorekeeper.R
 import com.afollestad.materialdialogs.MaterialDialog
@@ -117,6 +118,8 @@ class ScoreFragment : BaseFragment() {
         val dialogView = dialog.customView ?: return
         val input = dialogView.findViewById(R.id.dialog_points_input) as EditText
         input.setText("0")
+        val nameTextView = dialogView.findViewById(R.id.dialog_points_player) as TextView
+        nameTextView.text = player.name
         dialog.builder.onPositive { _, _ ->
             scoresRepository.createMove(player, input.text.toString().toInt())
             updateScoreList()

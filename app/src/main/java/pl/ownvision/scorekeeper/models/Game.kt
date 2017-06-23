@@ -20,7 +20,7 @@ open class Game (
         @Required
         var name: String = "",
 
-        var createdAt: Date = Date(),
+        override var createdAt: Date = Date(),
 
         var players: RealmList<Player> = RealmList(),
         var moves: RealmList<Move> = RealmList(),
@@ -28,6 +28,4 @@ open class Game (
         // stable id for LastAdapter
         @Ignore
         override val stableId: Long = id.hashCode().toLong()
-) : RealmObject(), StableId {
-        fun getCreatedLocal() = createdAt.getFormattedLocal()
-}
+) : RealmObject(), StableId, CreatedAt

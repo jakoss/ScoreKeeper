@@ -7,8 +7,10 @@
     tools:context="pl.ownvision.scorekeeper.views.fragments.StatsFragment">
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Statystyki"/>
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Statystyki\n\nPojawią się w przyszłości"/>
 
 </android.support.design.widget.CoordinatorLayout>

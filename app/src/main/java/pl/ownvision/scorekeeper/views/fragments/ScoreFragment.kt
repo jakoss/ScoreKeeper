@@ -20,17 +20,15 @@ import com.github.nitrico.lastadapter.LastAdapter
 import pl.ownvision.scorekeeper.core.App
 import pl.ownvision.scorekeeper.core.alert
 import pl.ownvision.scorekeeper.databinding.ItemScoreLayoutBinding
-import pl.ownvision.scorekeeper.models.Player
-import pl.ownvision.scorekeeper.models.Score
-import pl.ownvision.scorekeeper.repositories.ScoresRepository
+import pl.ownvision.scorekeeper.db.entities.Player
+import pl.ownvision.scorekeeper.db.entities.Score
 import javax.inject.Inject
 
 
 class ScoreFragment : BaseFragment() {
 
-    @Arg lateinit var gameId: String
+    @Arg var gameId: Long = 0
 
-    @Inject lateinit var scoresRepository: ScoresRepository
     lateinit var dialog: MaterialDialog
 
     val scores = ObservableArrayList<Score>()
@@ -39,12 +37,6 @@ class ScoreFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         App.appComponent.inject(this)
-        scoresRepository.gameId = gameId
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        scoresRepository.closeRealm()
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -64,21 +56,24 @@ class ScoreFragment : BaseFragment() {
         score_list.setHasFixedSize(true)
         score_list.layoutManager = LinearLayoutManager(activity)
 
+        /*
         lastAdapter = LastAdapter(scores, BR.score)
                 .map<Score, ItemScoreLayoutBinding>(R.layout.item_score_layout) {
                     onBind {
                         val score = it.binding.score ?: return@onBind
                         val button = it.itemView.findViewById(R.id.button_move)
                         button.setOnClickListener {
-                            showMoveDialog(score.player)
+                            //showMoveDialog(score.player)
                         }
                     }
                 }
                 .into(score_list)
+                */
     }
 
     override fun onStart() {
         super.onStart()
+        /*
         val game = gameRepository.getGame(gameId)
         val players = game.players
         if(players.count() == 0){
@@ -92,39 +87,40 @@ class ScoreFragment : BaseFragment() {
 
             loadScoreList()
         }
+        */
     }
 
     private fun loadScoreList() {
         scores.clear()
-        val scoresList = scoresRepository.getScoresList()
-        scores.addAll(scoresList.sortedByDescending { it.points })
+//        val scoresList = scoresRepository.getScoresList()
+//        scores.addAll(scoresList.sortedByDescending { it.points })
     }
 
     private fun updateScoreList() {
-        val scoresList = scoresRepository.getScoresList()
-        scoresList.forEach {
-            val player = it.player
-            val score = scores.find { it.player.id == player.id }
-            if(score != null) {
-                score.points = it.points
-                score.moveCount = it.moveCount
-            }
-        }
-        scores.sortByDescending { it.points }
-        lastAdapter.notifyDataSetChanged()
+//        val scoresList = scoresRepository.getScoresList()
+//        scoresList.forEach {
+//            val player = it.player
+//            val score = scores.find { it.playerId == player.id }
+//            if(score != null) {
+//                score.points = it.points
+//                score.moveCount = it.moveCount
+//            }
+//        }
+//        scores.sortByDescending { it.points }
+//        lastAdapter.notifyDataSetChanged()
     }
 
     private fun showMoveDialog(player: Player) {
-        val dialogView = dialog.customView ?: return
-        val input = dialogView.findViewById(R.id.dialog_points_input) as EditText
-        input.setText("0")
-        val nameTextView = dialogView.findViewById(R.id.dialog_points_player) as TextView
-        nameTextView.text = player.name
-        dialog.builder.onPositive { _, _ ->
-            scoresRepository.createMove(player, input.text.toString().toInt())
-            updateScoreList()
-        }
-        dialog.show()
+//        val dialogView = dialog.customView ?: return
+//        val input = dialogView.findViewById(R.id.dialog_points_input) as EditText
+//        input.setText("0")
+//        val nameTextView = dialogView.findViewById(R.id.dialog_points_player) as TextView
+//        nameTextView.text = player.name
+//        dialog.builder.onPositive { _, _ ->
+//            scoresRepository.createMove(player, input.text.toString().toInt())
+//            updateScoreList()
+//        }
+//        dialog.show()
     }
 
     private fun setupPointsDialog(){

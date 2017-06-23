@@ -18,17 +18,14 @@ import pl.ownvision.scorekeeper.core.alert
 import pl.ownvision.scorekeeper.core.showInputDialog
 import pl.ownvision.scorekeeper.core.snackbar
 import pl.ownvision.scorekeeper.databinding.ItemPlayerLayoutBinding
+import pl.ownvision.scorekeeper.db.entities.Player
 import pl.ownvision.scorekeeper.exceptions.ValidationException
-import pl.ownvision.scorekeeper.models.Player
-import pl.ownvision.scorekeeper.repositories.PlayerRepository
 import javax.inject.Inject
 
 
 class PlayersFragment : BaseFragment() {
 
-    @Arg lateinit var gameId: String
-
-    @Inject lateinit var playerRepository: PlayerRepository
+    @Arg var gameId: Long = 0
 
     val players = ObservableArrayList<Player>()
     lateinit var lastAdapter: LastAdapter
@@ -36,12 +33,6 @@ class PlayersFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         App.appComponent.inject(this)
-        playerRepository.gameId = gameId
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        playerRepository.closeRealm()
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -71,24 +62,26 @@ class PlayersFragment : BaseFragment() {
                 }
                 .into(players_list)
 
+        /*
         if(!playerRepository.canUpdate()) {
             fab.hide()
             activity.alert("Dodawanie i usuwanie dostępne tylko przed startem rozgrywki")
         }
+        */
     }
 
     override fun onStart() {
         super.onStart()
         players.clear()
-        players.addAll(playerRepository.getPlayers())
+        //players.addAll(playerRepository.getPlayers())
     }
 
     fun displayPopup(view: View, player: Player){
         val popup = PopupMenu(view.context, view)
         popup.inflate(R.menu.menu_standard_item)
 
-        if(!playerRepository.canUpdate())
-            popup.menu.removeItem(R.id.menu_standard_remove)
+        //if(!playerRepository.canUpdate())
+        //    popup.menu.removeItem(R.id.menu_standard_remove)
 
         popup.setOnMenuItemClickListener {
             when (it.itemId) {
@@ -109,8 +102,8 @@ class PlayersFragment : BaseFragment() {
     fun addPlayer(){
         activity.showInputDialog(R.string.new_player, R.string.create, getString(R.string.name_placeholder), null) {input ->
             try {
-                val player = playerRepository.createNewPlayer(input.toString())
-                players.add(player)
+                //val player = playerRepository.createNewPlayer(input.toString())
+                //players.add(player)
             }catch (e: ValidationException){
                 activity.snackbar(e.error)
             }catch (e: Exception){
@@ -122,7 +115,7 @@ class PlayersFragment : BaseFragment() {
 
     fun removePlayer(player: Player){
         try {
-            playerRepository.removePlayer(player.id)
+            //playerRepository.removePlayer(player.id)
             players.remove(player)
         }catch (e: Exception){
             activity.snackbar(R.string.error_deleting)
@@ -133,8 +126,8 @@ class PlayersFragment : BaseFragment() {
     fun renamePlayer(player: Player){
         activity.showInputDialog(R.string.rename, R.string.save, getString(R.string.name_placeholder), player.name) {input ->
             try {
-                player.name = input.toString()
-                playerRepository.updatePlayer(player)
+               // player.name = input.toString()
+               // playerRepository.updatePlayer(player)
                 lastAdapter.notifyDataSetChanged()
             }catch (e: ValidationException){
                 activity.snackbar(e.error)

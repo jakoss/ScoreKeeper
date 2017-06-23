@@ -10,7 +10,6 @@ import android.view.View
 import pl.ownvision.scorekeeper.R
 import pl.ownvision.scorekeeper.core.App
 import pl.ownvision.scorekeeper.db.AppDatabase
-import pl.ownvision.scorekeeper.repositories.GameRepository
 import javax.inject.Inject
 
 /**

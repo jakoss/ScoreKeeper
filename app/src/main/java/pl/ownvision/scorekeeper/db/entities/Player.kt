@@ -3,6 +3,7 @@ package pl.ownvision.scorekeeper.db.entities
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.ForeignKey
 import android.arch.persistence.room.ForeignKey.CASCADE
+import android.arch.persistence.room.Index
 
 /**
  * Created by jakub on 31.05.2017.
@@ -14,8 +15,9 @@ import android.arch.persistence.room.ForeignKey.CASCADE
                         parentColumns = arrayOf("id"),
                         childColumns = arrayOf("gameId"),
                         onDelete = CASCADE)
-        ))
-data class Player (
-        var name: String = "",
-        var gameId: Long = 0
-) : BaseEntity()
+        ),
+        indices = arrayOf(Index("gameId")))
+class Player: BaseEntity(){
+    var name: String = ""
+    var gameId: Long = 0
+}

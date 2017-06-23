@@ -19,12 +19,12 @@ interface GameDao {
     @Delete
     fun delete(game: Game)
 
-    @Query("select * from games where id = :id")
-    fun get(id: Long): Game
+    @Query("select * from games where id = :p0")
+    fun get(p0: Long): Game
 
-    @Query("select * from games")
+    @Query("select * from games order by createdAt desc")
     fun getAll(): LiveData<List<Game>>
 
-    @Query("update games set name = :name where id = :id")
-    fun setName(id: Long, name: String)
+    @Query("update games set name = :p1 where id = :p0")
+    fun setName(p0: Long, p1: String) // TODO : revert param names after kotlin fix https://youtrack.jetbrains.com/issue/KT-17959
 }

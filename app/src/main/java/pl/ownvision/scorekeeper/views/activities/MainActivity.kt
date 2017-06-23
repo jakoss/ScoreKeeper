@@ -1,10 +1,12 @@
 package pl.ownvision.scorekeeper.views.activities
 
 import android.arch.lifecycle.Observer
+import android.databinding.ObservableArrayList
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.PopupMenu
+import co.metalab.asyncawait.async
 import com.afollestad.materialdialogs.MaterialDialog
 import com.elvishew.xlog.XLog
 import com.github.nitrico.lastadapter.BR
@@ -19,7 +21,7 @@ import pl.ownvision.scorekeeper.exceptions.ValidationException
 
 class MainActivity : BaseActivity() {
 
-    val games = mutableListOf<Game>()
+    val games = ObservableArrayList<Game>()
     lateinit var lastAdapter: LastAdapter
 
 
@@ -53,23 +55,29 @@ class MainActivity : BaseActivity() {
                 .into(games_list)
 
         database.gameDao().getAll().observe(this, Observer {
-            if(it != null) games.addAll(it)
+            if(it != null) {
+                games.clear()
+                games.addAll(it)
+            }
         })
 
     }
 
     fun createNewGame(){
         showInputDialog(R.string.new_game, R.string.create, getString(R.string.name_placeholder), null) {input ->
-            try {
-                if(input.isNullOrEmpty()) throw ValidationException(getString(R.string.validation_name_cannot_be_empty))
-                val game = Game(name = input)
-                database.gameDao().insert(game)
-                games.add(0, game)
-            }catch (e: ValidationException){
-                this.snackbar(e.error)
-            }catch (e: Exception){
-                this.snackbar(R.string.error_creating)
-                XLog.e("Error creating game", e)
+            async {
+                try {
+                    if (input.isNullOrEmpty()) throw ValidationException(getString(R.string.validation_name_cannot_be_empty))
+                    val game = Game()
+                    game.name = input
+                    await { database.gameDao().insert(game) }
+                    games.add(0, game)
+                } catch (e: ValidationException) {
+                    this@MainActivity.snackbar(e.error)
+                } catch (e: Exception) {
+                    this@MainActivity.snackbar(R.string.error_creating)
+                    XLog.e("Error creating game", e)
+                }
             }
         }
     }
@@ -99,12 +107,14 @@ class MainActivity : BaseActivity() {
                 .positiveText(R.string.yes)
                 .negativeText(R.string.no)
                 .onPositive { _, _ ->
-                    try {
-                        database.gameDao().delete(game)
-                        games.remove(game)
-                    }catch (e: Exception){
-                        this.snackbar(R.string.error_deleting)
-                        XLog.e("Error removing game", e)
+                    async {
+                        try {
+                            await { database.gameDao().delete(game) }
+                            games.remove(game)
+                        } catch (e: Exception) {
+                            this@MainActivity.snackbar(R.string.error_deleting)
+                            XLog.e("Error removing game", e)
+                        }
                     }
                 }
                 .show()
@@ -112,18 +122,22 @@ class MainActivity : BaseActivity() {
 
     fun renameGame(game: Game){
         showInputDialog(R.string.rename, R.string.save, getString(R.string.name_placeholder), game.name) {input ->
-            try {
-                if(input.isNullOrEmpty()) throw ValidationException(getString(R.string.validation_name_cannot_be_empty))
-                database.gameDao().setName(game.id, input)
-                val updatedGame = database.gameDao().get(game.id)
-                val index = games.indexOfFirst { it.id == game.id }
-                games[index] = updatedGame
-                lastAdapter.notifyDataSetChanged()
-            }catch (e: ValidationException){
-                this.snackbar(e.error)
-            }catch (e: Exception){
-                this.snackbar(R.string.error_renaming)
-                XLog.e("Error rename game", e)
+            async {
+                try {
+                    if (input.isNullOrEmpty()) throw ValidationException(getString(R.string.validation_name_cannot_be_empty))
+                    val updatedGame = await {
+                        database.gameDao().setName(game.id, input)
+                        database.gameDao().get(game.id)
+                    }
+                    val index = games.indexOfFirst { it.id == game.id }
+                    games[index] = updatedGame
+                    lastAdapter.notifyDataSetChanged()
+                } catch (e: ValidationException) {
+                    this@MainActivity.snackbar(e.error)
+                } catch (e: Exception) {
+                    this@MainActivity.snackbar(R.string.error_renaming)
+                    XLog.e("Error rename game", e)
+                }
             }
         }
     }

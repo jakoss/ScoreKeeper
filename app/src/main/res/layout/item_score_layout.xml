@@ -30,7 +30,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{@string/score_title(score.player.name, score.points)}"
+                    android:text="@{@string/score_title(score.playerName, score.points)}"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
                 <TextView
                     android:text="@{@string/move_count(score.moveCount)}"

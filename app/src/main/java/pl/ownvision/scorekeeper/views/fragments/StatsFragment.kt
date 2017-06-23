@@ -10,7 +10,7 @@ import pl.ownvision.scorekeeper.R
 
 class StatsFragment : BaseFragment() {
 
-    @Arg lateinit var gameId: String
+    @Arg var gameId: Long = 0
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

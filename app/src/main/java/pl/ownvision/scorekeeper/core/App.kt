@@ -4,8 +4,7 @@ import android.app.Application
 import com.elvishew.xlog.LogConfiguration
 import com.elvishew.xlog.LogLevel
 import com.elvishew.xlog.XLog
-import io.realm.Realm
-import io.realm.RealmConfiguration
+import net.danlew.android.joda.JodaTimeAndroid
 
 /**
  * Created by jakub on 30.05.2017.
@@ -21,6 +20,7 @@ class App : Application(){
     override fun onCreate() {
         super.onCreate()
         instance = this
+        JodaTimeAndroid.init(this)
         appComponent = DaggerAppComponent.builder()
                 .appModule(AppModule(this))
                 .build()

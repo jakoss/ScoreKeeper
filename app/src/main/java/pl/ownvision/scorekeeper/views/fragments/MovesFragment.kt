@@ -16,16 +16,13 @@ import pl.ownvision.scorekeeper.R
 import pl.ownvision.scorekeeper.core.App
 import pl.ownvision.scorekeeper.core.snackbar
 import pl.ownvision.scorekeeper.databinding.ItemMoveLayoutBinding
-import pl.ownvision.scorekeeper.models.Move
-import pl.ownvision.scorekeeper.repositories.ScoresRepository
+import pl.ownvision.scorekeeper.db.entities.Move
 import javax.inject.Inject
 
 
 class MovesFragment : BaseFragment() {
 
-    @Arg lateinit var gameId: String
-
-    @Inject lateinit var scoresRepository: ScoresRepository
+    @Arg var gameId: Long = 0
 
     lateinit var lastAdapter: LastAdapter
     val moves = ObservableArrayList<Move>()
@@ -33,12 +30,6 @@ class MovesFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         App.appComponent.inject(this)
-        scoresRepository.gameId = gameId
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        scoresRepository.closeRealm()
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -52,6 +43,7 @@ class MovesFragment : BaseFragment() {
         moves_list.setHasFixedSize(true)
         moves_list.layoutManager = LinearLayoutManager(activity)
 
+        /*
         lastAdapter = LastAdapter(moves, BR.move)
                 .map<Move, ItemMoveLayoutBinding>(R.layout.item_move_layout) {
                     onBind {
@@ -63,12 +55,13 @@ class MovesFragment : BaseFragment() {
                     }
                 }
                 .into(moves_list)
+                */
     }
 
     override fun onStart() {
         super.onStart()
-        val game = gameRepository.getGame(gameId)
-        moves.addAll(game.moves.sortedByDescending { it.createdAt })
+        //val game = gameRepository.getGame(gameId)
+        //moves.addAll(game.moves.sortedByDescending { it.createdAt })
 
         if(moves.count() == 0){
             // Empty list
@@ -102,7 +95,7 @@ class MovesFragment : BaseFragment() {
     fun removeMove(move: Move){
         try {
             moves.remove(move)
-            scoresRepository.removeMove(move)
+            //scoresRepository.removeMove(move)
         }catch (e: Exception){
             activity.snackbar(R.string.error_deleting)
             XLog.e("Error removing move", e)

@@ -4,10 +4,7 @@ import activitystarter.Arg
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_game.*
 import pl.ownvision.scorekeeper.R
-import pl.ownvision.scorekeeper.core.App
-import pl.ownvision.scorekeeper.repositories.GameRepository
 import pl.ownvision.scorekeeper.views.fragments.*
-import javax.inject.Inject
 
 
 class GameActivity : BaseActivity() {

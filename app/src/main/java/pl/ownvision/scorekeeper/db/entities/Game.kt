@@ -7,6 +7,6 @@ import android.arch.persistence.room.*
  */
 
 @Entity(tableName = "games")
-data class Game (
-        var name: String = ""
-) : BaseEntity()
+class Game : BaseEntity() {
+    var name: String = ""
+}

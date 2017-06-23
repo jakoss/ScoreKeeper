@@ -45,7 +45,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version" // TODO : jre8 when Android Studio 3.0 is released
 
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support:appcompat-v7:25.3.1'
@@ -81,14 +81,8 @@ dependencies {
 kapt {
     generateStubs = true
 }
-
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
-    sourceCompatibility = JavaVersion.VERSION_1_6
-    targetCompatibility = JavaVersion.VERSION_1_6
-
-    kotlinOptions {
-        jvmTarget = '1.6'
-        apiVersion = '1.1'
-        languageVersion = '1.1'
+kotlin {
+    experimental {
+        coroutines "enable"
     }
 }

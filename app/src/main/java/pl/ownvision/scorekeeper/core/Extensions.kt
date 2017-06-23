@@ -11,7 +11,6 @@ import com.tapadoo.alerter.Alerter
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import pl.ownvision.scorekeeper.R
-import java.util.*
 
 /**
  * Created by jakub on 31.05.2017.

@@ -10,14 +10,13 @@ import pl.ownvision.scorekeeper.core.getFormattedLocal
  * Created by jakub on 23.06.2017.
  */
 
-abstract class BaseEntity(
-        @PrimaryKey(autoGenerate = true)
-        var id: Long = 0,
-        var createdAt: DateTime = DateTime.now(),
+abstract class BaseEntity: StableId {
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0
+    var createdAt: DateTime = DateTime()
 
-        // stable id for LastAdapter
-        @Ignore
-        override val stableId: Long = id
-) : StableId {
+    // stable id for LastAdapter
+    @Ignore
+    override val stableId: Long = id
     fun getCreatedLocal() = createdAt.getFormattedLocal()
 }

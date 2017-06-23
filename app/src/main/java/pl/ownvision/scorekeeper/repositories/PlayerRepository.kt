@@ -1,5 +1,7 @@
 package pl.ownvision.scorekeeper.repositories
 
+/*
+
 import android.content.Context
 import io.realm.Case
 import io.realm.Realm
@@ -78,3 +80,5 @@ class PlayerRepository(
         return game
     }
 }
+
+        */

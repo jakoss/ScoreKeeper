@@ -1,13 +1,13 @@
 package pl.ownvision.scorekeeper.views.fragments
 
 import activitystarter.ActivityStarter
+import activitystarter.Arg
 import android.arch.lifecycle.LifecycleRegistry
 import android.arch.lifecycle.LifecycleRegistryOwner
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import pl.ownvision.scorekeeper.core.App
 import pl.ownvision.scorekeeper.db.AppDatabase
-import pl.ownvision.scorekeeper.repositories.GameRepository
 import pl.ownvision.scorekeeper.views.activities.GameActivity
 import javax.inject.Inject
 

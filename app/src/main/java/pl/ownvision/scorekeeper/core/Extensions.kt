@@ -31,12 +31,12 @@ fun Activity.snackbar(text: String, duration: Int = Snackbar.LENGTH_LONG) {
     snackBar.show()
 }
 
-fun Activity.showInputDialog(@StringRes title: Int, @StringRes positive: Int, placeholder: String, value: String?, callback: (input: CharSequence) -> Unit) {
+fun Activity.showInputDialog(@StringRes title: Int, @StringRes positive: Int, placeholder: String, value: String?, callback: (input: String) -> Unit) {
     MaterialDialog.Builder(this)
             .title(title)
             .inputType(InputType.TYPE_CLASS_TEXT)
             .input(placeholder, value, { _, input ->
-                callback(input)
+                callback(input.toString())
             })
             .positiveText(positive)
             .show()

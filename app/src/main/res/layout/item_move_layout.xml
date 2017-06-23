@@ -4,7 +4,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="move" type="pl.ownvision.scorekeeper.models.Move"/>
+        <variable name="move" type="pl.ownvision.scorekeeper.db.entities.Move"/>
     </data>
 
     <android.support.v7.widget.CardView

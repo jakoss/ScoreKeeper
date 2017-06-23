@@ -32,13 +32,6 @@ class App : Application(){
                 .st(5)
                 .build()
         XLog.init(logConfig)
-
-        // TODO : handle real migrations in future
-        Realm.init(this)
-        val config = RealmConfiguration.Builder()
-                .deleteRealmIfMigrationNeeded()
-                .build()
-        Realm.setDefaultConfiguration(config)
     }
 
     override fun onTerminate() {

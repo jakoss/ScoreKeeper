@@ -4,7 +4,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="score" type="pl.ownvision.scorekeeper.models.Score"/>
+        <variable name="score" type="pl.ownvision.scorekeeper.db.entities.Score"/>
     </data>
 
     <android.support.v7.widget.CardView

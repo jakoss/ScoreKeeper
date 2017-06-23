@@ -8,11 +8,9 @@ import org.joda.time.DateTime
  */
 
 class DateTimeConverter {
-    companion object {
-        @TypeConverter
-        fun toDateTime(timestamp: Long): DateTime = DateTime(timestamp)
+    @TypeConverter
+    fun toDateTime(timestamp: Long): DateTime = DateTime(timestamp)
 
-        @TypeConverter
-        fun toTimestamp(dateTime: DateTime): Long = dateTime.millis
-    }
+    @TypeConverter
+    fun toTimestamp(dateTime: DateTime): Long = dateTime.millis
 }

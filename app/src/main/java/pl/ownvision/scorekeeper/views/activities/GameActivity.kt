@@ -12,14 +12,14 @@ import javax.inject.Inject
 
 class GameActivity : BaseActivity() {
 
-    @Arg lateinit var gameId: String
+    @Arg var gameId: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
         setToolbar(toolbar_include)
 
-        val game = gameRepository.getGame(gameId)
+        val game = database.gameDao().get(gameId)
         supportActionBar!!.title = game.name
 
         setupFragment(savedInstanceState)

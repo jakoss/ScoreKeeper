@@ -1,6 +1,6 @@
 package pl.ownvision.scorekeeper.views.activities
 
-import android.databinding.ObservableArrayList
+import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
@@ -13,13 +13,13 @@ import kotlinx.android.synthetic.main.activity_main.*
 import pl.ownvision.scorekeeper.R
 import pl.ownvision.scorekeeper.core.*
 import pl.ownvision.scorekeeper.databinding.ItemGameLayoutBinding
+import pl.ownvision.scorekeeper.db.entities.Game
 import pl.ownvision.scorekeeper.exceptions.ValidationException
-import pl.ownvision.scorekeeper.models.Game
 
 
 class MainActivity : BaseActivity() {
 
-    val games = ObservableArrayList<Game>()
+    val games = mutableListOf<Game>()
     lateinit var lastAdapter: LastAdapter
 
 
@@ -52,13 +52,18 @@ class MainActivity : BaseActivity() {
                 }
                 .into(games_list)
 
-        games.addAll(gameRepository.getAllGames())
+        database.gameDao().getAll().observe(this, Observer {
+            if(it != null) games.addAll(it)
+        })
+
     }
 
     fun createNewGame(){
         showInputDialog(R.string.new_game, R.string.create, getString(R.string.name_placeholder), null) {input ->
             try {
-                val game = gameRepository.createGame(input.toString())
+                if(input.isNullOrEmpty()) throw ValidationException(getString(R.string.validation_name_cannot_be_empty))
+                val game = Game(name = input)
+                database.gameDao().insert(game)
                 games.add(0, game)
             }catch (e: ValidationException){
                 this.snackbar(e.error)
@@ -95,7 +100,7 @@ class MainActivity : BaseActivity() {
                 .negativeText(R.string.no)
                 .onPositive { _, _ ->
                     try {
-                        gameRepository.removeGame(game)
+                        database.gameDao().delete(game)
                         games.remove(game)
                     }catch (e: Exception){
                         this.snackbar(R.string.error_deleting)
@@ -106,13 +111,13 @@ class MainActivity : BaseActivity() {
     }
 
     fun renameGame(game: Game){
-        val updatedGame = gameRepository.getGame(game.id)
-        val index = games.indexOfFirst { it.id == game.id }
-        games[index] = updatedGame
-        showInputDialog(R.string.rename, R.string.save, getString(R.string.name_placeholder), updatedGame.name) {input ->
+        showInputDialog(R.string.rename, R.string.save, getString(R.string.name_placeholder), game.name) {input ->
             try {
-                updatedGame.name = input.toString()
-                gameRepository.updateGame(updatedGame)
+                if(input.isNullOrEmpty()) throw ValidationException(getString(R.string.validation_name_cannot_be_empty))
+                database.gameDao().setName(game.id, input)
+                val updatedGame = database.gameDao().get(game.id)
+                val index = games.indexOfFirst { it.id == game.id }
+                games[index] = updatedGame
                 lastAdapter.notifyDataSetChanged()
             }catch (e: ValidationException){
                 this.snackbar(e.error)

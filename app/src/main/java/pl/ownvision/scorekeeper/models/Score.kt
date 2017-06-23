@@ -11,7 +11,4 @@ class Score (
         val player: Player,
         var points: Int,
         var moveCount: Int
-){
-    fun getMoveCountString(): String = App.instance.getString(R.string.move_count, moveCount)
-    fun getTitle() = "${player.name}: $points"
-}
+)

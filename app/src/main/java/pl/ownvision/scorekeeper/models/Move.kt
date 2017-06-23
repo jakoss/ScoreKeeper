@@ -14,10 +14,7 @@ open class Move(
         var id: String = UUID.randomUUID().toString(),
 
         var player: Player? = null,
-        var createdAt: java.util.Date = Date(),
+        override var createdAt: java.util.Date = Date(),
 
         var score: Int = 0
-) : RealmObject() {
-        fun getTitle() = "${player?.name}: $score"
-        fun getCreatedLocal() = createdAt.getFormattedLocal()
-}
+) : RealmObject(), CreatedAt

@@ -42,6 +42,15 @@ class ScoresRepository(
         }
     }
 
+    fun removeMove(move: Move){
+        realm.executeTransaction {
+            val result = it.where(Move::class.java)
+                    .equalTo("id", move.id)
+                    .findFirst()
+            result.deleteFromRealm()
+        }
+    }
+
     private fun validateMove(move: Move){
         if(move.player == null) throw ValidationException("Player is null")
 

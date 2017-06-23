@@ -121,7 +121,6 @@ class PlayersFragment : BaseFragment() {
     }
 
     fun removePlayer(player: Player){
-        // TODO : confirm dialog
         try {
             playerRepository.removePlayer(player.id)
             players.remove(player)

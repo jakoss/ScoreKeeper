@@ -21,4 +21,5 @@ interface AppComponent {
     fun inject(fragment: BaseFragment)
     fun inject(fragment: PlayersFragment)
     fun inject(fragment: ScoreFragment)
+    fun inject(fragment: MovesFragment)
 }

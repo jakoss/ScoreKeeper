@@ -6,6 +6,7 @@ import io.realm.RealmObject
 import io.realm.annotations.Ignore
 import io.realm.annotations.PrimaryKey
 import io.realm.annotations.Required
+import pl.ownvision.scorekeeper.core.getFormattedLocal
 import java.util.*
 
 /**
@@ -27,4 +28,6 @@ open class Game (
         // stable id for LastAdapter
         @Ignore
         override val stableId: Long = id.hashCode().toLong()
-) : RealmObject(), StableId
+) : RealmObject(), StableId {
+        fun getCreatedLocal() = createdAt.getFormattedLocal()
+}

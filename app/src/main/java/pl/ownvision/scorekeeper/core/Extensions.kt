@@ -4,12 +4,14 @@ import android.app.Activity
 import android.content.Context
 import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
 import android.text.InputType
 import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
 import com.tapadoo.alerter.Alerter
+import org.joda.time.DateTime
+import org.joda.time.format.DateTimeFormat
 import pl.ownvision.scorekeeper.R
+import java.util.*
 
 /**
  * Created by jakub on 31.05.2017.
@@ -54,3 +56,5 @@ fun Activity.alert(text: String) {
             .setBackgroundColor(R.color.colorPrimary)
             .show()
 }
+
+fun Date.getFormattedLocal(): String = DateTimeFormat.forStyle("SM").print(DateTime(this))

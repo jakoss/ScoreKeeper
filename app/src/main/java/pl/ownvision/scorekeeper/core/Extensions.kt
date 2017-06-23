@@ -57,4 +57,4 @@ fun Activity.alert(text: String) {
             .show()
 }
 
-fun Date.getFormattedLocal(): String = DateTimeFormat.forStyle("SM").print(DateTime(this))
+fun DateTime.getFormattedLocal(): String = DateTimeFormat.forStyle("SM").print(this)

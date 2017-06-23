@@ -1,7 +1,4 @@
-package pl.ownvision.scorekeeper.models
-
-import pl.ownvision.scorekeeper.R
-import pl.ownvision.scorekeeper.core.App
+package pl.ownvision.scorekeeper.db.entities
 
 /**
  * Created by jakub on 07.06.2017.

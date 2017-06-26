@@ -74,9 +74,9 @@ class MainActivity : BaseActivity() {
                 try {
                     await { viewModel.addGame(input) }
                 } catch (e: ValidationException) {
-                    this@MainActivity.snackbar(e.error)
+                    this@MainActivity.alert(e.error)
                 } catch (e: Exception) {
-                    this@MainActivity.snackbar(R.string.error_creating)
+                    this@MainActivity.alert(R.string.error_creating)
                     XLog.e("Error creating game", e)
                 }
             }
@@ -112,7 +112,7 @@ class MainActivity : BaseActivity() {
                         try {
                             await { viewModel.removeGame(game) }
                         } catch (e: Exception) {
-                            this@MainActivity.snackbar(R.string.error_deleting)
+                            this@MainActivity.alert(R.string.error_deleting)
                             XLog.e("Error removing game", e)
                         }
                     }
@@ -126,9 +126,9 @@ class MainActivity : BaseActivity() {
                 try {
                     await { viewModel.renameGame(game, input) }
                 } catch (e: ValidationException) {
-                    this@MainActivity.snackbar(e.error)
+                    this@MainActivity.alert(e.error)
                 } catch (e: Exception) {
-                    this@MainActivity.snackbar(R.string.error_renaming)
+                    this@MainActivity.alert(R.string.error_renaming)
                     XLog.e("Error rename game", e)
                 }
             }

@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.View
+import co.metalab.asyncawait.async
 import pl.ownvision.scorekeeper.R
 import pl.ownvision.scorekeeper.core.App
 import pl.ownvision.scorekeeper.db.AppDatabase
@@ -29,6 +30,11 @@ open class BaseActivity : AppCompatActivity(), LifecycleRegistryOwner {
         super.onCreate(savedInstanceState)
         App.appComponent.inject(this)
         ActivityStarter.fill(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        async.cancelAll()
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {

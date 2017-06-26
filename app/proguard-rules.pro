@@ -24,5 +24,10 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
-# DBFlow
--keep class * extends com.raizlabs.android.dbflow.config.DatabaseHolder { *; }
+-dontwarn rx.Observable
+-dontwarn rx.observables.BlockingObservable
+-dontwarn retrofit2.Response
+-dontwarn retrofit2.Call
+
+-keep class pl.ownvision.scorekeeper.** { *; }
+-keep class android.arch.** { *; }

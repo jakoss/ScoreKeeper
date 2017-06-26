@@ -11,7 +11,7 @@ import javax.inject.Singleton
  * Created by jakub on 30.05.2017.
  */
 
-@Module
+@Module(includes = arrayOf(ViewModelModule::class))
 class AppModule(val app: App){
 
     @Provides
@@ -25,4 +25,8 @@ class AppModule(val app: App){
     @Provides
     @Singleton
     fun provideDatabase(app: App): AppDatabase = Room.databaseBuilder(app, AppDatabase::class.java, AppDatabase.DATABASE_NAME).build()
+
+    @Provides
+    @Singleton
+    fun provideGameDao(appDatabase: AppDatabase) = appDatabase.gameDao()
 }

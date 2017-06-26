@@ -3,6 +3,7 @@ package pl.ownvision.scorekeeper.views.activities
 import activitystarter.ActivityStarter
 import android.arch.lifecycle.LifecycleRegistry
 import android.arch.lifecycle.LifecycleRegistryOwner
+import android.arch.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
@@ -20,6 +21,7 @@ open class BaseActivity : AppCompatActivity(), LifecycleRegistryOwner {
 
     @Inject lateinit protected var database: AppDatabase
     @Inject lateinit protected var application: App
+    @Inject lateinit protected var viewModelFactory: ViewModelProvider.Factory
 
     // TODO : use complement base class after alpha stage for library
     private val lifecycleRegistry = LifecycleRegistry(this)

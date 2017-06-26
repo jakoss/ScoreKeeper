@@ -56,19 +56,18 @@ class ScoreFragment : BaseFragment() {
         score_list.setHasFixedSize(true)
         score_list.layoutManager = LinearLayoutManager(activity)
 
-        /*
+
         lastAdapter = LastAdapter(scores, BR.score)
                 .map<Score, ItemScoreLayoutBinding>(R.layout.item_score_layout) {
                     onBind {
                         val score = it.binding.score ?: return@onBind
                         val button = it.itemView.findViewById(R.id.button_move)
                         button.setOnClickListener {
-                            //showMoveDialog(score.player)
+                            showMoveDialog(score.playerId)
                         }
                     }
                 }
                 .into(score_list)
-                */
     }
 
     override fun onStart() {
@@ -110,7 +109,7 @@ class ScoreFragment : BaseFragment() {
 //        lastAdapter.notifyDataSetChanged()
     }
 
-    private fun showMoveDialog(player: Player) {
+    private fun showMoveDialog(playerId: Long) {
 //        val dialogView = dialog.customView ?: return
 //        val input = dialogView.findViewById(R.id.dialog_points_input) as EditText
 //        input.setText("0")

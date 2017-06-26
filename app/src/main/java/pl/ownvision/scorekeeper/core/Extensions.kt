@@ -11,7 +11,6 @@ import com.tapadoo.alerter.Alerter
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import pl.ownvision.scorekeeper.R
-import java.util.*
 
 /**
  * Created by jakub on 31.05.2017.
@@ -31,17 +30,18 @@ fun Activity.snackbar(text: String, duration: Int = Snackbar.LENGTH_LONG) {
     snackBar.show()
 }
 
-fun Activity.showInputDialog(@StringRes title: Int, @StringRes positive: Int, placeholder: String, value: String?, callback: (input: CharSequence) -> Unit) {
+fun Activity.showInputDialog(@StringRes title: Int, @StringRes positive: Int, placeholder: String, value: String?, callback: (input: String) -> Unit) {
     MaterialDialog.Builder(this)
             .title(title)
             .inputType(InputType.TYPE_CLASS_TEXT)
             .input(placeholder, value, { _, input ->
-                callback(input)
+                callback(input.toString())
             })
             .positiveText(positive)
             .show()
 }
 
+fun Activity.alertWithTitle(@StringRes title: Int, @StringRes text: Int) = alertWithTitle(getString(title), getString(text))
 fun Activity.alertWithTitle(title: String, text: String) {
     Alerter.create(this)
             .setTitle(title)
@@ -50,6 +50,7 @@ fun Activity.alertWithTitle(title: String, text: String) {
             .show()
 }
 
+fun Activity.alert(@StringRes text: Int) = alert(getString(text))
 fun Activity.alert(text: String) {
     Alerter.create(this)
             .setText(text)
@@ -57,4 +58,4 @@ fun Activity.alert(text: String) {
             .show()
 }
 
-fun Date.getFormattedLocal(): String = DateTimeFormat.forStyle("SM").print(DateTime(this))
+fun DateTime.getFormattedLocal(): String = DateTimeFormat.forStyle("SM").print(this)

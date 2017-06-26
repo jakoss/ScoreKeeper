@@ -1,17 +1,17 @@
 package pl.ownvision.scorekeeper.core
 
+import android.arch.persistence.room.Room
 import android.content.Context
 import dagger.Module
 import dagger.Provides
-import io.realm.Realm
-import pl.ownvision.scorekeeper.repositories.*
+import pl.ownvision.scorekeeper.db.AppDatabase
 import javax.inject.Singleton
 
 /**
  * Created by jakub on 30.05.2017.
  */
 
-@Module
+@Module(includes = arrayOf(ViewModelModule::class))
 class AppModule(val app: App){
 
     @Provides
@@ -23,14 +23,18 @@ class AppModule(val app: App){
     fun provideApp(): App = app
 
     @Provides
-    fun provideRealm(): Realm = Realm.getDefaultInstance()
+    @Singleton
+    fun provideDatabase(app: App): AppDatabase = Room.databaseBuilder(app, AppDatabase::class.java, AppDatabase.DATABASE_NAME).build()
 
     @Provides
-    fun provideGameRepository(realm: Realm, context: Context): GameRepository = GameRepository(realm, context)
+    @Singleton
+    fun provideGameDao(appDatabase: AppDatabase) = appDatabase.gameDao()
 
     @Provides
-    fun providePlayerRepository(realm: Realm, context: Context): PlayerRepository = PlayerRepository(realm, context)
+    @Singleton
+    fun provideMovesDao(appDatabase: AppDatabase) = appDatabase.movesDao()
 
     @Provides
-    fun provideScoresRepository(realm: Realm, context: Context): ScoresRepository = ScoresRepository(realm, context)
+    @Singleton
+    fun providePlayersDao(appDatabase: AppDatabase) = appDatabase.playersDao()
 }

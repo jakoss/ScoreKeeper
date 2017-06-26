@@ -1,10 +1,13 @@
 package pl.ownvision.scorekeeper.views.activities
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.databinding.ObservableArrayList
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.PopupMenu
+import co.metalab.asyncawait.async
 import com.afollestad.materialdialogs.MaterialDialog
 import com.elvishew.xlog.XLog
 import com.github.nitrico.lastadapter.BR
@@ -13,20 +16,24 @@ import kotlinx.android.synthetic.main.activity_main.*
 import pl.ownvision.scorekeeper.R
 import pl.ownvision.scorekeeper.core.*
 import pl.ownvision.scorekeeper.databinding.ItemGameLayoutBinding
+import pl.ownvision.scorekeeper.db.entities.Game
 import pl.ownvision.scorekeeper.exceptions.ValidationException
-import pl.ownvision.scorekeeper.models.Game
+import pl.ownvision.scorekeeper.viewmodels.GameListViewModel
 
 
 class MainActivity : BaseActivity() {
 
     val games = ObservableArrayList<Game>()
     lateinit var lastAdapter: LastAdapter
+    lateinit var viewModel: GameListViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setToolbar(toolbar_include)
+
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(GameListViewModel::class.java)
 
         fab.setOnClickListener {
             createNewGame()
@@ -52,19 +59,26 @@ class MainActivity : BaseActivity() {
                 }
                 .into(games_list)
 
-        games.addAll(gameRepository.getAllGames())
+        viewModel.getAllGames().observe(this, Observer {
+            if(it != null) {
+                games.clear()
+                games.addAll(it)
+            }
+        })
+
     }
 
     fun createNewGame(){
         showInputDialog(R.string.new_game, R.string.create, getString(R.string.name_placeholder), null) {input ->
-            try {
-                val game = gameRepository.createGame(input.toString())
-                games.add(0, game)
-            }catch (e: ValidationException){
-                this.snackbar(e.error)
-            }catch (e: Exception){
-                this.snackbar(R.string.error_creating)
-                XLog.e("Error creating game", e)
+            async {
+                try {
+                    await { viewModel.addGame(input) }
+                } catch (e: ValidationException) {
+                    this@MainActivity.alert(e.error)
+                } catch (e: Exception) {
+                    this@MainActivity.alert(R.string.error_creating)
+                    XLog.e("Error creating game", e)
+                }
             }
         }
     }
@@ -94,31 +108,29 @@ class MainActivity : BaseActivity() {
                 .positiveText(R.string.yes)
                 .negativeText(R.string.no)
                 .onPositive { _, _ ->
-                    try {
-                        gameRepository.removeGame(game)
-                        games.remove(game)
-                    }catch (e: Exception){
-                        this.snackbar(R.string.error_deleting)
-                        XLog.e("Error removing game", e)
+                    async {
+                        try {
+                            await { viewModel.removeGame(game) }
+                        } catch (e: Exception) {
+                            this@MainActivity.alert(R.string.error_deleting)
+                            XLog.e("Error removing game", e)
+                        }
                     }
                 }
                 .show()
     }
 
     fun renameGame(game: Game){
-        val updatedGame = gameRepository.getGame(game.id)
-        val index = games.indexOfFirst { it.id == game.id }
-        games[index] = updatedGame
-        showInputDialog(R.string.rename, R.string.save, getString(R.string.name_placeholder), updatedGame.name) {input ->
-            try {
-                updatedGame.name = input.toString()
-                gameRepository.updateGame(updatedGame)
-                lastAdapter.notifyDataSetChanged()
-            }catch (e: ValidationException){
-                this.snackbar(e.error)
-            }catch (e: Exception){
-                this.snackbar(R.string.error_renaming)
-                XLog.e("Error rename game", e)
+        showInputDialog(R.string.rename, R.string.save, getString(R.string.name_placeholder), game.name) {input ->
+            async {
+                try {
+                    await { viewModel.renameGame(game, input) }
+                } catch (e: ValidationException) {
+                    this@MainActivity.alert(e.error)
+                } catch (e: Exception) {
+                    this@MainActivity.alert(R.string.error_renaming)
+                    XLog.e("Error rename game", e)
+                }
             }
         }
     }

@@ -1,5 +1,6 @@
 package pl.ownvision.scorekeeper.repositories
 
+/*
 import android.content.Context
 import io.realm.Realm
 
@@ -12,3 +13,5 @@ open class BaseRepository(protected val realm: Realm, protected val context: Con
         realm.close()
     }
 }
+
+        */

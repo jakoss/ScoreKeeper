@@ -4,7 +4,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="move" type="pl.ownvision.scorekeeper.models.Move"/>
+        <variable name="move" type="pl.ownvision.scorekeeper.db.entities.Move"/>
     </data>
 
     <android.support.v7.widget.CardView
@@ -30,7 +30,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{move.title}"
+                    android:text="@{@string/score_title(move.playerName, move.score)}"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
                 <TextView
                     android:text="@{move.createdLocal}"

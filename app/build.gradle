@@ -3,7 +3,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 25
@@ -46,7 +45,9 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version" // TODO : jre8 when Android Studio 3.0 is released
+
+    compile 'com.facebook.stetho:stetho:1.5.0'
 
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support:appcompat-v7:25.3.1'
@@ -70,19 +71,20 @@ dependencies {
     kapt 'com.github.marcinmoskala.activitystarter:activitystarter-compiler:0.50'
     provided 'org.glassfish:javax.annotation:10.0-b28'
     compile 'com.tapadoo.android:alerter:1.0.8'
+
+    compile "android.arch.lifecycle:runtime:1.0.0-alpha3"
+    compile "android.arch.lifecycle:extensions:1.0.0-alpha3"
+    kapt "android.arch.lifecycle:compiler:1.0.0-alpha3"
+
+    compile "android.arch.persistence.room:runtime:1.0.0-alpha3"
+    kapt "android.arch.persistence.room:compiler:1.0.0-alpha3"
 }
 
 kapt {
     generateStubs = true
 }
-
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
-    sourceCompatibility = JavaVersion.VERSION_1_6
-    targetCompatibility = JavaVersion.VERSION_1_6
-
-    kotlinOptions {
-        jvmTarget = '1.6'
-        apiVersion = '1.1'
-        languageVersion = '1.1'
+kotlin {
+    experimental {
+        coroutines "enable"
     }
 }

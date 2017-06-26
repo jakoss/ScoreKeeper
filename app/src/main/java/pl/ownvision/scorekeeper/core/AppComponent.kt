@@ -15,11 +15,6 @@ import javax.inject.Singleton
 ))
 interface AppComponent {
     fun inject(activity: BaseActivity)
-    fun inject(activity: MainActivity)
-    fun inject(activity: GameActivity)
 
     fun inject(fragment: BaseFragment)
-    fun inject(fragment: PlayersFragment)
-    fun inject(fragment: ScoreFragment)
-    fun inject(fragment: MovesFragment)
 }

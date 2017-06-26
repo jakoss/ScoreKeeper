@@ -4,8 +4,8 @@ import android.app.Application
 import com.elvishew.xlog.LogConfiguration
 import com.elvishew.xlog.LogLevel
 import com.elvishew.xlog.XLog
-import io.realm.Realm
-import io.realm.RealmConfiguration
+import com.facebook.stetho.Stetho
+import net.danlew.android.joda.JodaTimeAndroid
 
 /**
  * Created by jakub on 30.05.2017.
@@ -21,6 +21,8 @@ class App : Application(){
     override fun onCreate() {
         super.onCreate()
         instance = this
+        Stetho.initializeWithDefaults(this);
+        JodaTimeAndroid.init(this)
         appComponent = DaggerAppComponent.builder()
                 .appModule(AppModule(this))
                 .build()
@@ -32,13 +34,6 @@ class App : Application(){
                 .st(5)
                 .build()
         XLog.init(logConfig)
-
-        // TODO : handle real migrations in future
-        Realm.init(this)
-        val config = RealmConfiguration.Builder()
-                .deleteRealmIfMigrationNeeded()
-                .build()
-        Realm.setDefaultConfiguration(config)
     }
 
     override fun onTerminate() {

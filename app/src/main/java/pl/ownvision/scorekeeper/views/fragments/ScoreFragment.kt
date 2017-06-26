@@ -2,6 +2,8 @@ package pl.ownvision.scorekeeper.views.fragments
 
 import activitystarter.ActivityStarter
 import activitystarter.Arg
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.databinding.ObservableArrayList
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -12,9 +14,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
+import co.metalab.asyncawait.async
 import kotlinx.android.synthetic.main.fragment_score.*
 import pl.ownvision.scorekeeper.R
 import com.afollestad.materialdialogs.MaterialDialog
+import com.elvishew.xlog.XLog
 import com.github.nitrico.lastadapter.BR
 import com.github.nitrico.lastadapter.LastAdapter
 import pl.ownvision.scorekeeper.core.App
@@ -22,12 +26,11 @@ import pl.ownvision.scorekeeper.core.alert
 import pl.ownvision.scorekeeper.databinding.ItemScoreLayoutBinding
 import pl.ownvision.scorekeeper.db.entities.Player
 import pl.ownvision.scorekeeper.db.entities.Score
+import pl.ownvision.scorekeeper.viewmodels.GameViewModel
 import javax.inject.Inject
 
 
-class ScoreFragment : BaseFragment() {
-
-    @Arg var gameId: Long = 0
+class ScoreFragment : BaseGameFragment() {
 
     lateinit var dialog: MaterialDialog
 
@@ -36,7 +39,7 @@ class ScoreFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        App.appComponent.inject(this)
+        viewModel = ViewModelProviders.of(activity, viewModelFactory).get(GameViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -63,63 +66,50 @@ class ScoreFragment : BaseFragment() {
                         val score = it.binding.score ?: return@onBind
                         val button = it.itemView.findViewById(R.id.button_move)
                         button.setOnClickListener {
-                            showMoveDialog(score.playerId)
+                            showMoveDialog(score)
                         }
                     }
                 }
                 .into(score_list)
+        viewModel.getScores().observe(this, Observer {
+            if(it != null){
+                if(it.count() > 0) {
+                    if(it.count() == scores.count()){
+                        // soft reload (only changes)
+                        for (i in  0..scores.count() - 1) {
+                            scores[i] = it.find { it.playerId == scores[i].playerId }
+                        }
+                        scores.sortByDescending { it.points }
+                        lastAdapter.notifyDataSetChanged()
+                    }else {
+                        // full list reload
+                        scores.clear()
+                        scores.addAll(it)
+                    }
+                }else{
+                    score_list.visibility = View.GONE
+                    tv_no_data.visibility = View.VISIBLE
+                }
+            }
+        })
     }
 
-    override fun onStart() {
-        super.onStart()
-        /*
-        val game = gameRepository.getGame(gameId)
-        val players = game.players
-        if(players.count() == 0){
-            // Empty list
-            score_list.visibility = View.GONE
-            tv_no_data.visibility = View.VISIBLE
-        }else{
-            // data present!
-            score_list.visibility = View.VISIBLE
-            tv_no_data.visibility = View.GONE
-
-            loadScoreList()
+    private fun showMoveDialog(score: Score) {
+        val dialogView = dialog.customView ?: return
+        val input = dialogView.findViewById(R.id.dialog_points_input) as EditText
+        input.setText("0")
+        val nameTextView = dialogView.findViewById(R.id.dialog_points_player) as TextView
+        nameTextView.text = score.playerName
+        dialog.builder.onPositive { _, _ ->
+            async {
+                try {
+                    await { viewModel.addMove(score.playerId, input.text.toString().toInt())}
+                } catch (e: Exception){
+                    XLog.e("Error while creating move", e)
+                }
+            }
         }
-        */
-    }
-
-    private fun loadScoreList() {
-        scores.clear()
-//        val scoresList = scoresRepository.getScoresList()
-//        scores.addAll(scoresList.sortedByDescending { it.points })
-    }
-
-    private fun updateScoreList() {
-//        val scoresList = scoresRepository.getScoresList()
-//        scoresList.forEach {
-//            val player = it.player
-//            val score = scores.find { it.playerId == player.id }
-//            if(score != null) {
-//                score.points = it.points
-//                score.moveCount = it.moveCount
-//            }
-//        }
-//        scores.sortByDescending { it.points }
-//        lastAdapter.notifyDataSetChanged()
-    }
-
-    private fun showMoveDialog(playerId: Long) {
-//        val dialogView = dialog.customView ?: return
-//        val input = dialogView.findViewById(R.id.dialog_points_input) as EditText
-//        input.setText("0")
-//        val nameTextView = dialogView.findViewById(R.id.dialog_points_player) as TextView
-//        nameTextView.text = player.name
-//        dialog.builder.onPositive { _, _ ->
-//            scoresRepository.createMove(player, input.text.toString().toInt())
-//            updateScoreList()
-//        }
-//        dialog.show()
+        dialog.show()
     }
 
     private fun setupPointsDialog(){

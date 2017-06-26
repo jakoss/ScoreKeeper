@@ -29,4 +29,12 @@ class AppModule(val app: App){
     @Provides
     @Singleton
     fun provideGameDao(appDatabase: AppDatabase) = appDatabase.gameDao()
+
+    @Provides
+    @Singleton
+    fun provideMovesDao(appDatabase: AppDatabase) = appDatabase.movesDao()
+
+    @Provides
+    @Singleton
+    fun providePlayersDao(appDatabase: AppDatabase) = appDatabase.playersDao()
 }

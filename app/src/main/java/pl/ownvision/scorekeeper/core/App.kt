@@ -4,6 +4,7 @@ import android.app.Application
 import com.elvishew.xlog.LogConfiguration
 import com.elvishew.xlog.LogLevel
 import com.elvishew.xlog.XLog
+import com.facebook.stetho.Stetho
 import net.danlew.android.joda.JodaTimeAndroid
 
 /**
@@ -20,6 +21,7 @@ class App : Application(){
     override fun onCreate() {
         super.onCreate()
         instance = this
+        Stetho.initializeWithDefaults(this);
         JodaTimeAndroid.init(this)
         appComponent = DaggerAppComponent.builder()
                 .appModule(AppModule(this))

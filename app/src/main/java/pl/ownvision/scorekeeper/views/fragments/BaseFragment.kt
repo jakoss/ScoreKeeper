@@ -4,6 +4,7 @@ import activitystarter.ActivityStarter
 import activitystarter.Arg
 import android.arch.lifecycle.LifecycleRegistry
 import android.arch.lifecycle.LifecycleRegistryOwner
+import android.arch.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import pl.ownvision.scorekeeper.core.App
@@ -18,13 +19,13 @@ open class BaseFragment : Fragment(), LifecycleRegistryOwner {
 
     @Inject lateinit protected var database: AppDatabase
     @Inject lateinit protected var application: App
+    @Inject lateinit protected var viewModelFactory: ViewModelProvider.Factory
 
     // TODO : use complement base class after alpha stage for library
     private val lifecycleRegistry = LifecycleRegistry(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ActivityStarter.fill(this)
         App.appComponent.inject(this)
     }
 

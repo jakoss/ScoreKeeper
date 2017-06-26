@@ -41,6 +41,7 @@ fun Activity.showInputDialog(@StringRes title: Int, @StringRes positive: Int, pl
             .show()
 }
 
+fun Activity.alertWithTitle(@StringRes title: Int, @StringRes text: Int) = alertWithTitle(getString(title), getString(text))
 fun Activity.alertWithTitle(title: String, text: String) {
     Alerter.create(this)
             .setTitle(title)
@@ -49,6 +50,7 @@ fun Activity.alertWithTitle(title: String, text: String) {
             .show()
 }
 
+fun Activity.alert(@StringRes text: Int) = alert(getString(text))
 fun Activity.alert(text: String) {
     Alerter.create(this)
             .setText(text)

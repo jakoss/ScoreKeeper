@@ -13,7 +13,10 @@ import javax.inject.Inject
  */
 
 class GameListViewModel
-    @Inject constructor(val gameDao: GameDao, val context: Context) : ViewModel() {
+    @Inject constructor(
+            private val gameDao: GameDao,
+            private val context: Context
+    ) : ViewModel() {
 
     fun getAllGames() = gameDao.getAll()
 

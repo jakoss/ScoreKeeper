@@ -3,8 +3,8 @@ package pl.ownvision.scorekeeper.db
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
-import pl.ownvision.scorekeeper.db.converters.DateTimeConverter
-import pl.ownvision.scorekeeper.db.daos.GameDao
+import pl.ownvision.scorekeeper.db.converters.*
+import pl.ownvision.scorekeeper.db.daos.*
 import pl.ownvision.scorekeeper.db.entities.*
 
 /**
@@ -19,4 +19,6 @@ abstract class AppDatabase : RoomDatabase() {
     }
 
     abstract fun gameDao(): GameDao
+    abstract fun movesDao(): MovesDao
+    abstract fun playersDao(): PlayersDao
 }

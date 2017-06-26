@@ -6,7 +6,7 @@ import android.arch.lifecycle.ViewModelProvider;
 import dagger.Binds;
 import dagger.Module;
 import dagger.multibindings.IntoMap;
-import pl.ownvision.scorekeeper.viewmodels.GameListViewModel;
+import pl.ownvision.scorekeeper.viewmodels.*;
 
 /**
  * Created by Jakub on 26.06.2017.
@@ -18,6 +18,11 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(GameListViewModel.class)
     abstract ViewModel bindGameListViewModel(GameListViewModel gameListViewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(GameViewModel.class)
+    abstract ViewModel bindGameViewModel(GameViewModel gameViewModel);
 
     @Binds
     abstract ViewModelProvider.Factory bindViewModelFactory(AppViewModelFactory factory);

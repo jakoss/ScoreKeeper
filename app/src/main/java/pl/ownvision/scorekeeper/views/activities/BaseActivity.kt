@@ -19,7 +19,6 @@ import javax.inject.Inject
 
 open class BaseActivity : AppCompatActivity(), LifecycleRegistryOwner {
 
-    @Inject lateinit protected var database: AppDatabase
     @Inject lateinit protected var application: App
     @Inject lateinit protected var viewModelFactory: ViewModelProvider.Factory
 

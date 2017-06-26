@@ -7,6 +7,7 @@ import android.arch.lifecycle.LifecycleRegistryOwner
 import android.arch.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import co.metalab.asyncawait.async
 import pl.ownvision.scorekeeper.core.App
 import pl.ownvision.scorekeeper.db.AppDatabase
 import pl.ownvision.scorekeeper.views.activities.GameActivity
@@ -27,6 +28,11 @@ open class BaseFragment : Fragment(), LifecycleRegistryOwner {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         App.appComponent.inject(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        async.cancelAll()
     }
 
     protected fun getGameActivity(): GameActivity {

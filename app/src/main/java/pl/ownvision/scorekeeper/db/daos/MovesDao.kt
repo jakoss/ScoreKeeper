@@ -22,6 +22,6 @@ interface MovesDao {
     @Query("select count(*) from moves where gameId = :gameId")
     fun getMoveCount(gameId: Long): Int
 
-    @Query("select m.id, m.playerId, p.name as playerName, m.score, m.gameId from moves as m join players as p on p.id = m.playerId where m.gameId = :gameId and m.score != 0 order by m.createdAt desc")
+    @Query("select m.id, m.playerId, p.name as playerName, m.score, m.gameId, m.createdAt from moves as m join players as p on p.id = m.playerId where m.gameId = :gameId and m.score != 0 order by m.createdAt desc")
     fun getMoves(gameId: Long): LiveData<List<Move>>
 }

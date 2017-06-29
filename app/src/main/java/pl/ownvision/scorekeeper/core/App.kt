@@ -1,7 +1,6 @@
 package pl.ownvision.scorekeeper.core
 
 import android.app.Application
-import com.crashlytics.android.BuildConfig
 import com.crashlytics.android.Crashlytics
 import com.crashlytics.android.core.CrashlyticsCore
 import com.elvishew.xlog.LogConfiguration
@@ -10,7 +9,7 @@ import com.elvishew.xlog.XLog
 import com.facebook.stetho.Stetho
 import io.fabric.sdk.android.Fabric
 import net.danlew.android.joda.JodaTimeAndroid
-
+import pl.ownvision.scorekeeper.BuildConfig
 
 
 /**

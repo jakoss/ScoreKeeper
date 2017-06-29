@@ -63,7 +63,7 @@ class GameViewModel
 
     fun getPlayers() = playersDao.getAll(gameId)
 
-    fun canEditPlayers() = movesDao.getMoveCount(gameId) == 0
+    fun canEditPlayers() = movesDao.getMoveCount(gameId) == playersDao.getPlayerCount(gameId)
 
     private fun validatePlayerName(name: String){
         if(name.isNullOrEmpty()) throw ValidationException(context.getString(R.string.validation_name_cannot_be_empty))

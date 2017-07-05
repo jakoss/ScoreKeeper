@@ -28,4 +28,7 @@ interface PlayersDao {
 
     @Query("select count(*) from players where gameId = :gameId and name = :name")
     fun getPlayersWithName(gameId: Long, name: String): Int
+
+    @Query("select count(*) from players where gameId = :gameId")
+    fun getPlayerCount(gameId: Long): Int
 }

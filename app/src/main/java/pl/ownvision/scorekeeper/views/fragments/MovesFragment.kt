@@ -89,7 +89,7 @@ class MovesFragment : BaseGameFragment() {
     fun removeMove(move: Move){
         async {
             try {
-                viewModel.deleteMove(move)
+                await { viewModel.deleteMove(move) }
             } catch (e: Exception) {
                 activity.alert(R.string.error_deleting)
                 XLog.e("Error removing move", e)

@@ -59,6 +59,7 @@ class MovesFragment : BaseGameFragment() {
                     moves_list.visibility = View.VISIBLE
                     tv_no_data.visibility = View.GONE
 
+                    moves.clear()
                     moves.addAll(it)
                 }else{
                     moves_list.visibility = View.GONE

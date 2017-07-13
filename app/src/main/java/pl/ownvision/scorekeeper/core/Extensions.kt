@@ -7,6 +7,8 @@ import android.support.design.widget.Snackbar
 import android.text.InputType
 import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
+import com.mikepenz.aboutlibraries.Libs
+import com.mikepenz.aboutlibraries.LibsBuilder
 import com.tapadoo.alerter.Alerter
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
@@ -58,6 +60,31 @@ fun Activity.alert(text: String) {
             .enableSwipeToDismiss()
             .setBackgroundColorRes(R.color.colorPrimary)
             .show()
+}
+
+fun Activity.showAbout() {
+    LibsBuilder()
+            .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
+            .withActivityTitle(getString(R.string.about_application))
+            .withAboutIconShown(true)
+            .withAboutVersionShown(true)
+            .withAutoDetect(false)
+            .withLibraries(
+                    "AboutLibraries",
+                    "AndroidIconics",
+                    "Crashlytics",
+                    "Dagger2",
+                    "fastadapter",
+                    "intellijannotations",
+                    "jodaTime",
+                    "jodatimeandroid",
+                    "materialdialogs",
+                    "appcompat_v7",
+                    "design",
+                    "recyclerview_v7",
+                    "support_v4"
+            )
+            .start(this)
 }
 
 fun DateTime.getFormattedLocal(): String = DateTimeFormat.forStyle("SM").print(this)

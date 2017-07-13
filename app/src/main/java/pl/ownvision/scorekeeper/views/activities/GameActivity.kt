@@ -7,10 +7,9 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import co.metalab.asyncawait.async
-import com.mikepenz.aboutlibraries.Libs
-import com.mikepenz.aboutlibraries.LibsBuilder
 import kotlinx.android.synthetic.main.activity_game.*
 import pl.ownvision.scorekeeper.R
+import pl.ownvision.scorekeeper.core.showAbout
 import pl.ownvision.scorekeeper.viewmodels.GameViewModel
 import pl.ownvision.scorekeeper.views.fragments.*
 
@@ -99,11 +98,7 @@ class GameActivity : BaseActivity() {
         val itemId = item?.itemId ?: return super.onOptionsItemSelected(item)
         when (itemId){
             R.id.about_application -> {
-                LibsBuilder()
-                        .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
-                        .withAboutIconShown(true)
-                        .withAboutVersionShown(true)
-                        .start(this)
+                showAbout()
                 return true
             }
             else -> return super.onOptionsItemSelected(item)

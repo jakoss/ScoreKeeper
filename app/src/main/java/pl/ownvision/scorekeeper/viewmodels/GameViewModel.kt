@@ -30,6 +30,7 @@ class GameViewModel
     fun getScores() = gameDao.getScores(gameId)
 
     fun addMove(playerId: Long, points: Int) {
+        validateMoveScore(points)
         val move = Move()
         move.gameId = gameId
         move.playerId = playerId
@@ -68,6 +69,10 @@ class GameViewModel
     private fun validatePlayerName(name: String){
         if(name.isNullOrEmpty()) throw ValidationException(context.getString(R.string.validation_name_cannot_be_empty))
         if(playerExists(name)) throw ValidationException(context.getString(R.string.validation_name_already_taken))
+    }
+
+    private fun validateMoveScore(points: Int){
+        if(points == 0) throw ValidationException(context.getString(R.string.validation_move_zero))
     }
 
     private fun playerExists(name: String) = playersDao.getPlayersWithName(gameId, name.trim()) == 1

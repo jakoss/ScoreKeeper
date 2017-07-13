@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Score Keeper</string>
+    <string name="about_application">O Aplikacji</string>
+    <string name="aboutLibraries_description_text"><![CDATA[<div>Aplikacja do przechowywania wyników gier planszowych, karcianych itd</div><br>
+
+    <div>Icons made by <a href="http://www.flaticon.com/authors/roundicons" title="Roundicons">Roundicons</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>]]></string>
 
     <!-- ERRORS -->
     <string name="error_creating">Błąd podczas tworzenia</string>
@@ -35,4 +39,5 @@
     <string name="no_moves">Nie wykonano żadnych ruchów</string>
     <string name="move_count">"Ilość wykonanych ruchów: %1$d"</string>
     <string name="score_title">%1$s: %2$d</string>
+    <string name="validation_move_zero">Ilość punktów nie może być inna od zera</string>
 </resources>

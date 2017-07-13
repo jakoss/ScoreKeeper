@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import co.metalab.asyncawait.async
+import com.crashlytics.android.Crashlytics
 import com.elvishew.xlog.XLog
 import com.github.nitrico.lastadapter.BR
 import com.github.nitrico.lastadapter.LastAdapter
@@ -59,6 +60,7 @@ class MovesFragment : BaseGameFragment() {
                     moves_list.visibility = View.VISIBLE
                     tv_no_data.visibility = View.GONE
 
+                    moves.clear()
                     moves.addAll(it)
                 }else{
                     moves_list.visibility = View.GONE
@@ -89,10 +91,11 @@ class MovesFragment : BaseGameFragment() {
     fun removeMove(move: Move){
         async {
             try {
-                viewModel.deleteMove(move)
+                await { viewModel.deleteMove(move) }
             } catch (e: Exception) {
                 activity.alert(R.string.error_deleting)
                 XLog.e("Error removing move", e)
+                Crashlytics.logException(e)
             }
         }
     }

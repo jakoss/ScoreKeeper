@@ -1,6 +1,5 @@
 package pl.ownvision.scorekeeper.views.fragments
 
-import activitystarter.Arg
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.LayoutInflater

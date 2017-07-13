@@ -46,7 +46,8 @@ fun Activity.alertWithTitle(title: String, text: String) {
     Alerter.create(this)
             .setTitle(title)
             .setText(text)
-            .setBackgroundColor(R.color.colorPrimary)
+            .enableSwipeToDismiss()
+            .setBackgroundColorRes(R.color.colorPrimary)
             .show()
 }
 
@@ -54,7 +55,8 @@ fun Activity.alert(@StringRes text: Int) = alert(getString(text))
 fun Activity.alert(text: String) {
     Alerter.create(this)
             .setText(text)
-            .setBackgroundColor(R.color.colorPrimary)
+            .enableSwipeToDismiss()
+            .setBackgroundColorRes(R.color.colorPrimary)
             .show()
 }
 

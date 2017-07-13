@@ -16,10 +16,12 @@ import com.elvishew.xlog.XLog
 import com.github.nitrico.lastadapter.BR
 import com.github.nitrico.lastadapter.LastAdapter
 import com.mikepenz.aboutlibraries.Libs
-import com.mikepenz.aboutlibraries.LibsBuilder
+import com.mikepenz.aboutlibraries.util.GenericsUtil
 import kotlinx.android.synthetic.main.activity_main.*
 import pl.ownvision.scorekeeper.R
-import pl.ownvision.scorekeeper.core.*
+import pl.ownvision.scorekeeper.core.alert
+import pl.ownvision.scorekeeper.core.showAbout
+import pl.ownvision.scorekeeper.core.showInputDialog
 import pl.ownvision.scorekeeper.databinding.ItemGameLayoutBinding
 import pl.ownvision.scorekeeper.db.entities.Game
 import pl.ownvision.scorekeeper.exceptions.ValidationException
@@ -71,6 +73,12 @@ class MainActivity : BaseActivity() {
             }
         })
 
+        val libs = Libs(this).prepareLibraries(this, GenericsUtil.getFields(this), null, true, true)
+        val sb = StringBuilder()
+        libs.forEach {
+            sb.append("\"${it.definedName}\",\n")
+        }
+        val text = sb.toString()
     }
 
     fun createNewGame(){
@@ -152,11 +160,7 @@ class MainActivity : BaseActivity() {
         val itemId = item?.itemId ?: return super.onOptionsItemSelected(item)
         when (itemId){
             R.id.about_application -> {
-                LibsBuilder()
-                        .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
-                        .withAboutIconShown(true)
-                        .withAboutVersionShown(true)
-                        .start(this)
+                showAbout()
                 return true
             }
             else -> return super.onOptionsItemSelected(item)

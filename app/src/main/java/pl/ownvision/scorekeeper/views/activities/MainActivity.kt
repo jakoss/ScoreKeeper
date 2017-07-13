@@ -5,6 +5,8 @@ import android.arch.lifecycle.ViewModelProviders
 import android.databinding.ObservableArrayList
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.PopupMenu
 import co.metalab.asyncawait.async
@@ -13,6 +15,8 @@ import com.crashlytics.android.Crashlytics
 import com.elvishew.xlog.XLog
 import com.github.nitrico.lastadapter.BR
 import com.github.nitrico.lastadapter.LastAdapter
+import com.mikepenz.aboutlibraries.Libs
+import com.mikepenz.aboutlibraries.LibsBuilder
 import kotlinx.android.synthetic.main.activity_main.*
 import pl.ownvision.scorekeeper.R
 import pl.ownvision.scorekeeper.core.*
@@ -136,6 +140,26 @@ class MainActivity : BaseActivity() {
                     Crashlytics.logException(e)
                 }
             }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_activity_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        val itemId = item?.itemId ?: return super.onOptionsItemSelected(item)
+        when (itemId){
+            R.id.about_application -> {
+                LibsBuilder()
+                        .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
+                        .withAboutIconShown(true)
+                        .withAboutVersionShown(true)
+                        .start(this)
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
         }
     }
 }

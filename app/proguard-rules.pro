@@ -31,6 +31,12 @@
 
 -keep class pl.ownvision.scorekeeper.** { *; }
 
+# AboutLibraries
+-keep class .R
+-keep class **.R$* {
+    <fields>;
+}
+
 # ProGuard
 -keepattributes *Annotation*
 -keepattributes SourceFile,LineNumberTable

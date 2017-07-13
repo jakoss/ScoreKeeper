@@ -98,6 +98,10 @@ dependencies {
 
     compile "android.arch.persistence.room:runtime:$arch_version"
     kapt "android.arch.persistence.room:compiler:$arch_version"
+
+    compile('com.mikepenz:aboutlibraries:5.9.6@aar') {
+        transitive = true
+    }
 }
 
 kapt {

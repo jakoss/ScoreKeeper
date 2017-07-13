@@ -1,7 +1,5 @@
 package pl.ownvision.scorekeeper.views.fragments
 
-import activitystarter.ActivityStarter
-import activitystarter.Arg
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.ObservableArrayList
@@ -15,19 +13,16 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import co.metalab.asyncawait.async
-import kotlinx.android.synthetic.main.fragment_score.*
-import pl.ownvision.scorekeeper.R
 import com.afollestad.materialdialogs.MaterialDialog
+import com.crashlytics.android.Crashlytics
 import com.elvishew.xlog.XLog
 import com.github.nitrico.lastadapter.BR
 import com.github.nitrico.lastadapter.LastAdapter
-import pl.ownvision.scorekeeper.core.App
-import pl.ownvision.scorekeeper.core.alert
+import kotlinx.android.synthetic.main.fragment_score.*
+import pl.ownvision.scorekeeper.R
 import pl.ownvision.scorekeeper.databinding.ItemScoreLayoutBinding
-import pl.ownvision.scorekeeper.db.entities.Player
 import pl.ownvision.scorekeeper.db.entities.Score
 import pl.ownvision.scorekeeper.viewmodels.GameViewModel
-import javax.inject.Inject
 
 
 class ScoreFragment : BaseGameFragment() {
@@ -106,6 +101,7 @@ class ScoreFragment : BaseGameFragment() {
                     await { viewModel.addMove(score.playerId, input.text.toString().toInt())}
                 } catch (e: Exception){
                     XLog.e("Error while creating move", e)
+                    Crashlytics.logException(e)
                 }
             }
         }

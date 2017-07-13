@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import co.metalab.asyncawait.async
+import com.crashlytics.android.Crashlytics
 import com.elvishew.xlog.XLog
 import com.github.nitrico.lastadapter.BR
 import com.github.nitrico.lastadapter.LastAdapter
@@ -113,6 +114,7 @@ class PlayersFragment : BaseGameFragment() {
                 } catch (e: Exception) {
                     activity.alert(R.string.error_creating)
                     XLog.e("Error creating player", e)
+                    Crashlytics.logException(e)
                 }
             }
         }
@@ -125,6 +127,7 @@ class PlayersFragment : BaseGameFragment() {
             } catch (e: Exception) {
                 activity.alert(R.string.error_deleting)
                 XLog.e("Error removing player", e)
+                Crashlytics.logException(e)
             }
         }
     }
@@ -139,6 +142,7 @@ class PlayersFragment : BaseGameFragment() {
                 } catch (e: Exception) {
                     activity.alert(R.string.error_renaming)
                     XLog.e("Error rename player", e)
+                    Crashlytics.logException(e)
                 }
             }
         }

@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import co.metalab.asyncawait.async
+import com.crashlytics.android.Crashlytics
 import com.elvishew.xlog.XLog
 import com.github.nitrico.lastadapter.BR
 import com.github.nitrico.lastadapter.LastAdapter
@@ -94,6 +95,7 @@ class MovesFragment : BaseGameFragment() {
             } catch (e: Exception) {
                 activity.alert(R.string.error_deleting)
                 XLog.e("Error removing move", e)
+                Crashlytics.logException(e)
             }
         }
     }

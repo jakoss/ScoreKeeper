@@ -30,4 +30,8 @@
 -dontwarn retrofit2.Call
 
 -keep class pl.ownvision.scorekeeper.** { *; }
--keep class android.arch.** { *; }
+
+# ProGuard
+-keepattributes *Annotation*
+-keepattributes SourceFile,LineNumberTable
+-keep public class * extends java.lang.Exception

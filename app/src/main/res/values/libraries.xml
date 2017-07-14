@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="libraries">
+        <item>AboutLibraries</item>
+        <item>AndroidIconics</item>
+        <item>Crashlytics</item>
+        <item>Dagger2</item>
+        <item>fastadapter</item>
+        <item>intellijannotations</item>
+        <item>jodaTime</item>
+        <item>jodatimeandroid</item>
+        <item>materialdialogs</item>
+        <item>appcompat_v7</item>
+        <item>design</item>
+        <item>recyclerview_v7</item>
+        <item>support_v4</item>
+        <item>MPAndroidChart</item>
+    </array>
+</resources>

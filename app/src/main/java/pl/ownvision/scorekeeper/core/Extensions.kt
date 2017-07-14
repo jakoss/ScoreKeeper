@@ -63,27 +63,14 @@ fun Activity.alert(text: String) {
 }
 
 fun Activity.showAbout() {
+    val libsArray = this.resources.getStringArray(R.array.libraries)
     LibsBuilder()
             .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
             .withActivityTitle(getString(R.string.about_application))
             .withAboutIconShown(true)
             .withAboutVersionShown(true)
             .withAutoDetect(false)
-            .withLibraries(
-                    "AboutLibraries",
-                    "AndroidIconics",
-                    "Crashlytics",
-                    "Dagger2",
-                    "fastadapter",
-                    "intellijannotations",
-                    "jodaTime",
-                    "jodatimeandroid",
-                    "materialdialogs",
-                    "appcompat_v7",
-                    "design",
-                    "recyclerview_v7",
-                    "support_v4"
-            )
+            .withLibraries(*libsArray)
             .start(this)
 }
 

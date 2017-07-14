@@ -11,7 +11,11 @@ import pl.ownvision.scorekeeper.db.entities.*
  * Created by jakub on 23.06.2017.
  */
 
-@Database(entities = arrayOf(Game::class, Move::class, Player::class), version = 1)
+@Database(entities = arrayOf(
+        Game::class,
+        Move::class,
+        Player::class
+), version = 1)
 @TypeConverters(DateTimeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     companion object {
@@ -21,4 +25,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun gameDao(): GameDao
     abstract fun movesDao(): MovesDao
     abstract fun playersDao(): PlayersDao
+    abstract fun statsDao(): StatsDao
 }

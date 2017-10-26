@@ -21,7 +21,7 @@ class GameListViewModel
     fun getAllGames() = gameDao.getAll()
 
     fun addGame(input: String) {
-        if (input.isNullOrEmpty()) throw ValidationException(context.getString(R.string.validation_name_cannot_be_empty))
+        if (input.isEmpty()) throw ValidationException(context.getString(R.string.validation_name_cannot_be_empty))
         val game = Game()
         game.name = input
         gameDao.insert(game)
@@ -32,7 +32,7 @@ class GameListViewModel
     }
 
     fun renameGame(game: Game, newName: String){
-        if (newName.isNullOrEmpty()) throw ValidationException(context.getString(R.string.validation_name_cannot_be_empty))
+        if (newName.isEmpty()) throw ValidationException(context.getString(R.string.validation_name_cannot_be_empty))
         gameDao.setName(game.id, newName)
     }
 }

@@ -2,6 +2,7 @@ package pl.ownvision.scorekeeper.viewmodels
 
 import android.arch.lifecycle.ViewModel
 import android.content.Context
+import com.github.mikephil.charting.data.*
 import pl.ownvision.scorekeeper.R
 import pl.ownvision.scorekeeper.db.daos.*
 import pl.ownvision.scorekeeper.db.entities.*
@@ -17,6 +18,7 @@ class GameViewModel
         private val gameDao: GameDao,
         private val movesDao: MovesDao,
         private val playersDao: PlayersDao,
+        private val statsDao: StatsDao,
         private val context: Context
 ): ViewModel() {
     private var gameId: Long = 0
@@ -65,6 +67,31 @@ class GameViewModel
     fun getPlayers() = playersDao.getAll(gameId)
 
     fun canEditPlayers() = movesDao.getMoveCount(gameId) == playersDao.getPlayerCount(gameId)
+
+    fun getTimeline() : LineData {
+        val moves = statsDao.getTimeline(gameId).groupBy { it.playerName }
+        val colors = context.resources.getIntArray(R.array.rainbow)
+        val lineDataSets = mutableListOf<LineDataSet>()
+        var colorCounter = 0
+        moves.forEach {
+            val entries = mutableListOf<Entry>()
+            var counter = 1
+            var sum = 0
+            val sortedMoves = it.value.sortedBy { it.createdAt }
+            sortedMoves.forEach {
+                sum += it.score
+                entries.add(Entry(counter.toFloat(), sum.toFloat()))
+                counter++
+            }
+            val lineDataSet = LineDataSet(entries, it.key)
+            val color = colors[colorCounter.rem(colors.size)]
+            lineDataSet.color = color
+            lineDataSet.valueTextColor = color
+            lineDataSets.add(lineDataSet)
+            colorCounter++
+        }
+        return LineData(lineDataSets.toList())
+    }
 
     private fun validatePlayerName(name: String){
         if(name.isEmpty()) throw ValidationException(context.getString(R.string.validation_name_cannot_be_empty))

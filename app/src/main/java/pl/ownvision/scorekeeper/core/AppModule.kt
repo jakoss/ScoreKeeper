@@ -37,4 +37,8 @@ class AppModule(val app: App){
     @Provides
     @Singleton
     fun providePlayersDao(appDatabase: AppDatabase) = appDatabase.playersDao()
+
+    @Provides
+    @Singleton
+    fun provideStatsDao(appDatabase: AppDatabase) = appDatabase.statsDao()
 }

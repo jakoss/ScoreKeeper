@@ -8,10 +8,6 @@ import android.arch.persistence.room.Query
 import pl.ownvision.scorekeeper.db.entities.Game
 import pl.ownvision.scorekeeper.db.entities.Score
 
-/**
- * Created by jakub on 23.06.2017.
- */
-
 @Dao
 interface GameDao {
     @Insert

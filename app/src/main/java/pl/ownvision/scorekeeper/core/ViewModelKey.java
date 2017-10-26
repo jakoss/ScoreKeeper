@@ -1,9 +1,5 @@
 package pl.ownvision.scorekeeper.core;
 
-/**
- * Created by Jakub on 26.06.2017.
- */
-
 import android.arch.lifecycle.ViewModel;
 
 import java.lang.annotation.Documented;

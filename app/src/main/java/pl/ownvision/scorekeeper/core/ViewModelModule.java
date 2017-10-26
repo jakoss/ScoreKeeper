@@ -8,10 +8,6 @@ import dagger.Module;
 import dagger.multibindings.IntoMap;
 import pl.ownvision.scorekeeper.viewmodels.*;
 
-/**
- * Created by Jakub on 26.06.2017.
- */
-
 @Module
 public abstract class ViewModelModule {
     @Binds

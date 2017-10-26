@@ -5,10 +5,6 @@ import android.arch.persistence.room.ForeignKey
 import android.arch.persistence.room.ForeignKey.CASCADE
 import android.arch.persistence.room.Index
 
-/**
- * Created by jakub on 31.05.2017.
- */
-
 @Entity(tableName = "players",
         foreignKeys = arrayOf(
                 ForeignKey(entity = Game::class,

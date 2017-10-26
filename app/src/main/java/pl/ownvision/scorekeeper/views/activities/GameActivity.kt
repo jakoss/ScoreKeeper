@@ -13,7 +13,6 @@ import pl.ownvision.scorekeeper.core.showAbout
 import pl.ownvision.scorekeeper.viewmodels.GameViewModel
 import pl.ownvision.scorekeeper.views.fragments.*
 
-
 class GameActivity : BaseActivity() {
 
     @Arg
@@ -23,8 +22,8 @@ class GameActivity : BaseActivity() {
     @Optional
     var pageNumber: Int = -1
 
-    lateinit var viewModel: GameViewModel
-    lateinit var fragmentsArray: List<BaseFragment>
+    private lateinit var viewModel: GameViewModel
+    private lateinit var fragmentsArray: List<BaseFragment>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,7 +65,7 @@ class GameActivity : BaseActivity() {
         }
     }
 
-    fun setupFragment(savedInstanceState: Bundle?){
+    private fun setupFragment(savedInstanceState: Bundle?){
         if(savedInstanceState != null) return
         if(pageNumber > -1){
             supportFragmentManager
@@ -96,12 +95,12 @@ class GameActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         val itemId = item?.itemId ?: return super.onOptionsItemSelected(item)
-        when (itemId){
+        return when (itemId){
             R.id.about_application -> {
                 showAbout()
-                return true
+                true
             }
-            else -> return super.onOptionsItemSelected(item)
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }

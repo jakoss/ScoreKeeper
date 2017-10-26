@@ -18,18 +18,16 @@ import kotlinx.android.synthetic.main.fragment_players_list.*
 import pl.ownvision.scorekeeper.R
 import pl.ownvision.scorekeeper.core.alert
 import pl.ownvision.scorekeeper.core.showInputDialog
-import pl.ownvision.scorekeeper.core.snackbar
 import pl.ownvision.scorekeeper.databinding.ItemPlayerLayoutBinding
 import pl.ownvision.scorekeeper.db.entities.Player
 import pl.ownvision.scorekeeper.exceptions.ValidationException
 import pl.ownvision.scorekeeper.viewmodels.GameViewModel
 
-
 class PlayersFragment : BaseGameFragment() {
 
     val players = ObservableArrayList<Player>()
-    var canUpdate: Boolean = true
-    lateinit var lastAdapter: LastAdapter
+    private var canUpdate: Boolean = true
+    private lateinit var lastAdapter: LastAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +53,7 @@ class PlayersFragment : BaseGameFragment() {
                 .map<Player, ItemPlayerLayoutBinding>(R.layout.item_player_layout) {
                     onBind {
                         val player = it.binding.player ?: return@onBind
-                        val innerView = it.itemView.findViewById(R.id.textViewOptions)
+                        val innerView = it.itemView.findViewById<View>(R.id.textViewOptions)
                         innerView.setOnClickListener {
                             displayPopup(it, player)
                         }
@@ -81,7 +79,7 @@ class PlayersFragment : BaseGameFragment() {
         })
     }
 
-    fun displayPopup(view: View, player: Player){
+    private fun displayPopup(view: View, player: Player){
         val popup = PopupMenu(view.context, view)
         popup.inflate(R.menu.menu_standard_item)
 
@@ -104,7 +102,7 @@ class PlayersFragment : BaseGameFragment() {
         popup.show()
     }
 
-    fun addPlayer(){
+    private fun addPlayer(){
         activity.showInputDialog(R.string.new_player, R.string.create, getString(R.string.name_placeholder), null) {input ->
             async {
                 try {
@@ -120,7 +118,7 @@ class PlayersFragment : BaseGameFragment() {
         }
     }
 
-    fun removePlayer(player: Player){
+    private fun removePlayer(player: Player){
         async {
             try {
                 await { viewModel.removePlayer(player) }
@@ -132,7 +130,7 @@ class PlayersFragment : BaseGameFragment() {
         }
     }
 
-    fun renamePlayer(player: Player){
+    private fun renamePlayer(player: Player){
         activity.showInputDialog(R.string.rename, R.string.save, getString(R.string.name_placeholder), player.name) {input ->
             async {
                 try {

@@ -7,10 +7,6 @@ import pl.ownvision.scorekeeper.db.converters.*
 import pl.ownvision.scorekeeper.db.daos.*
 import pl.ownvision.scorekeeper.db.entities.*
 
-/**
- * Created by jakub on 23.06.2017.
- */
-
 @Database(entities = arrayOf(
         Game::class,
         Move::class,

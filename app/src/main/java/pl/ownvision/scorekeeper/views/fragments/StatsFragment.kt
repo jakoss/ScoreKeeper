@@ -6,11 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import co.metalab.asyncawait.async
-import com.github.mikephil.charting.data.*
 import kotlinx.android.synthetic.main.fragment_stats_list.*
 import pl.ownvision.scorekeeper.R
 import pl.ownvision.scorekeeper.viewmodels.GameViewModel
-
 
 class StatsFragment : BaseGameFragment() {
 

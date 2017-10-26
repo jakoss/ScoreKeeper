@@ -7,10 +7,6 @@ import android.arch.persistence.room.Insert
 import android.arch.persistence.room.Query
 import pl.ownvision.scorekeeper.db.entities.Move
 
-/**
- * Created by Jakub on 26.06.2017.
- */
-
 @Dao
 interface MovesDao {
     @Insert

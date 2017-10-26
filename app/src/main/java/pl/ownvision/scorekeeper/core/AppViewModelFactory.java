@@ -2,18 +2,13 @@ package pl.ownvision.scorekeeper.core;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
+import android.support.annotation.NonNull;
 
 import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
-
-/**
- * Created by Jakub on 26.06.2017.
- */
-
-
 
 @Singleton
 class AppViewModelFactory implements ViewModelProvider.Factory {
@@ -24,9 +19,10 @@ class AppViewModelFactory implements ViewModelProvider.Factory {
         this.creators = creators;
     }
 
+    @NonNull
     @SuppressWarnings("unchecked")
     @Override
-    public <T extends ViewModel> T create(Class<T> modelClass) {
+    public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         Provider<? extends ViewModel> creator = creators.get(modelClass);
         if (creator == null) {
             for (Map.Entry<Class<? extends ViewModel>, Provider<ViewModel>> entry : creators.entrySet()) {

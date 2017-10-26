@@ -5,10 +5,6 @@ import android.arch.persistence.room.ForeignKey
 import android.arch.persistence.room.Ignore
 import android.arch.persistence.room.Index
 
-/**
- * Created by jakub on 31.05.2017.
- */
-
 @Entity(tableName = "moves",
         foreignKeys = arrayOf(
                 ForeignKey(entity = Game::class,

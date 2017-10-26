@@ -11,11 +11,6 @@ import io.fabric.sdk.android.Fabric
 import net.danlew.android.joda.JodaTimeAndroid
 import pl.ownvision.scorekeeper.BuildConfig
 
-
-/**
- * Created by jakub on 30.05.2017.
- */
-
 class App : Application(){
 
     companion object {
@@ -41,9 +36,5 @@ class App : Application(){
                 .st(5)
                 .build()
         XLog.init(logConfig)
-    }
-
-    override fun onTerminate() {
-        super.onTerminate()
     }
 }

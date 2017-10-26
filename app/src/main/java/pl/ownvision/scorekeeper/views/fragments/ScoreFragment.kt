@@ -27,10 +27,10 @@ import pl.ownvision.scorekeeper.viewmodels.GameViewModel
 
 class ScoreFragment : BaseGameFragment() {
 
-    lateinit var dialog: MaterialDialog
+    private lateinit var dialog: MaterialDialog
 
-    val scores = ObservableArrayList<Score>()
-    lateinit var lastAdapter: LastAdapter
+    private val scores = ObservableArrayList<Score>()
+    private lateinit var lastAdapter: LastAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +59,7 @@ class ScoreFragment : BaseGameFragment() {
                 .map<Score, ItemScoreLayoutBinding>(R.layout.item_score_layout) {
                     onBind {
                         val score = it.binding.score ?: return@onBind
-                        val button = it.itemView.findViewById(R.id.button_move)
+                        val button = it.itemView.findViewById<View>(R.id.button_move)
                         button.setOnClickListener {
                             showMoveDialog(score)
                         }
@@ -71,7 +71,7 @@ class ScoreFragment : BaseGameFragment() {
                 if(it.count() > 0) {
                     if(it.count() == scores.count()){
                         // soft reload (only changes)
-                        for (i in  0..scores.count() - 1) {
+                        for (i in 0 until scores.count()) {
                             scores[i] = it.find { it.playerId == scores[i].playerId }
                         }
                         scores.sortByDescending { it.points }
@@ -91,9 +91,9 @@ class ScoreFragment : BaseGameFragment() {
 
     private fun showMoveDialog(score: Score) {
         val dialogView = dialog.customView ?: return
-        val input = dialogView.findViewById(R.id.dialog_points_input) as EditText
+        val input = dialogView.findViewById<EditText>(R.id.dialog_points_input)
         input.setText("0")
-        val nameTextView = dialogView.findViewById(R.id.dialog_points_player) as TextView
+        val nameTextView = dialogView.findViewById<TextView>(R.id.dialog_points_player)
         nameTextView.text = score.playerName
         dialog.builder.onPositive { _, _ ->
             async {
@@ -117,7 +117,7 @@ class ScoreFragment : BaseGameFragment() {
 
         val dialogView = dialog.customView ?: return
 
-        val input = dialogView.findViewById(R.id.dialog_points_input) as EditText
+        val input = dialogView.findViewById<EditText>(R.id.dialog_points_input)
 
         fun setNewValue(button: View){
             val delta = button.tag.toString().toInt()
@@ -125,8 +125,8 @@ class ScoreFragment : BaseGameFragment() {
             input.setText(points.toString())
         }
 
-        val llAdd = dialogView.findViewById(R.id.dialog_points_ll_add) as LinearLayout
-        val llSub = dialogView.findViewById(R.id.dialog_points_ll_sub) as LinearLayout
+        val llAdd = dialogView.findViewById<LinearLayout>(R.id.dialog_points_ll_add)
+        val llSub = dialogView.findViewById<LinearLayout>(R.id.dialog_points_ll_sub)
 
         for (i in 0..llAdd.childCount){
             val buttonAdd = llAdd.getChildAt(i) as Button?

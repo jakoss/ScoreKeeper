@@ -8,10 +8,6 @@ import android.arch.persistence.room.Query
 import pl.ownvision.scorekeeper.db.entities.Move
 import pl.ownvision.scorekeeper.db.entities.Player
 
-/**
- * Created by Jakub on 26.06.2017.
- */
-
 @Dao
 interface PlayersDao {
     @Insert

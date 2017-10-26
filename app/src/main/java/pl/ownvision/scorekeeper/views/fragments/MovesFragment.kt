@@ -21,10 +21,9 @@ import pl.ownvision.scorekeeper.databinding.ItemMoveLayoutBinding
 import pl.ownvision.scorekeeper.db.entities.Move
 import pl.ownvision.scorekeeper.viewmodels.GameViewModel
 
-
 class MovesFragment : BaseGameFragment() {
 
-    lateinit var lastAdapter: LastAdapter
+    private lateinit var lastAdapter: LastAdapter
     val moves = ObservableArrayList<Move>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +46,7 @@ class MovesFragment : BaseGameFragment() {
                 .map<Move, ItemMoveLayoutBinding>(R.layout.item_move_layout) {
                     onBind {
                         val move = it.binding.move ?: return@onBind
-                        val innerView = it.itemView.findViewById(R.id.textViewOptions)
+                        val innerView = it.itemView.findViewById<View>(R.id.textViewOptions)
                         innerView.setOnClickListener {
                             displayPopup(it, move)
                         }
@@ -70,7 +69,7 @@ class MovesFragment : BaseGameFragment() {
         })
     }
 
-    fun displayPopup(view: View, move: Move){
+    private fun displayPopup(view: View, move: Move){
         val popup = PopupMenu(view.context, view)
         popup.inflate(R.menu.menu_standard_item)
 
@@ -88,7 +87,7 @@ class MovesFragment : BaseGameFragment() {
         popup.show()
     }
 
-    fun removeMove(move: Move){
+    private fun removeMove(move: Move){
         async {
             try {
                 await { viewModel.deleteMove(move) }

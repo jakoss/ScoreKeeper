@@ -27,12 +27,11 @@ import pl.ownvision.scorekeeper.db.entities.Game
 import pl.ownvision.scorekeeper.exceptions.ValidationException
 import pl.ownvision.scorekeeper.viewmodels.GameListViewModel
 
-
 class MainActivity : BaseActivity() {
 
-    val games = ObservableArrayList<Game>()
-    lateinit var lastAdapter: LastAdapter
-    lateinit var viewModel: GameListViewModel
+    private val games = ObservableArrayList<Game>()
+    private lateinit var lastAdapter: LastAdapter
+    private lateinit var viewModel: GameListViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,7 +57,7 @@ class MainActivity : BaseActivity() {
 
                     onBind {
                         val game = it.binding.game ?: return@onBind
-                        val view = it.itemView.findViewById(R.id.textViewOptions)
+                        val view = it.itemView.findViewById<View>(R.id.textViewOptions)
                         view.setOnClickListener {
                             displayPopup(it, game)
                         }
@@ -73,15 +72,10 @@ class MainActivity : BaseActivity() {
             }
         })
 
-        val libs = Libs(this).prepareLibraries(this, GenericsUtil.getFields(this), null, true, true)
-        val sb = StringBuilder()
-        libs.forEach {
-            sb.append("\"${it.definedName}\",\n")
-        }
-        val text = sb.toString()
+        Libs(this).prepareLibraries(this, GenericsUtil.getFields(this), null, true, true)
     }
 
-    fun createNewGame(){
+    private fun createNewGame(){
         showInputDialog(R.string.new_game, R.string.create, getString(R.string.name_placeholder), null) {input ->
             async {
                 try {
@@ -97,7 +91,7 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    fun displayPopup(view: View, game: Game){
+    private fun displayPopup(view: View, game: Game){
         val popup = PopupMenu(view.context, view)
         popup.inflate(R.menu.menu_standard_item)
         popup.setOnMenuItemClickListener {
@@ -116,7 +110,7 @@ class MainActivity : BaseActivity() {
         popup.show()
     }
 
-    fun removeGame(game: Game){
+    private fun removeGame(game: Game){
         MaterialDialog.Builder(this)
                 .title(R.string.remove_confirm)
                 .positiveText(R.string.yes)
@@ -135,7 +129,7 @@ class MainActivity : BaseActivity() {
                 .show()
     }
 
-    fun renameGame(game: Game){
+    private fun renameGame(game: Game){
         showInputDialog(R.string.rename, R.string.save, getString(R.string.name_placeholder), game.name) {input ->
             async {
                 try {
@@ -158,12 +152,12 @@ class MainActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         val itemId = item?.itemId ?: return super.onOptionsItemSelected(item)
-        when (itemId){
+        return when (itemId){
             R.id.about_application -> {
                 showAbout()
-                return true
+                true
             }
-            else -> return super.onOptionsItemSelected(item)
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }

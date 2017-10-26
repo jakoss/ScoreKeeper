@@ -6,10 +6,6 @@ import com.github.nitrico.lastadapter.StableId
 import org.joda.time.DateTime
 import pl.ownvision.scorekeeper.core.getFormattedLocal
 
-/**
- * Created by jakub on 23.06.2017.
- */
-
 abstract class BaseEntity: StableId {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0

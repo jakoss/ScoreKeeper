@@ -8,10 +8,6 @@ import pl.ownvision.scorekeeper.db.entities.Game
 import pl.ownvision.scorekeeper.exceptions.ValidationException
 import javax.inject.Inject
 
-/**
- * Created by Jakub on 26.06.2017.
- */
-
 class GameListViewModel
     @Inject constructor(
             private val gameDao: GameDao,

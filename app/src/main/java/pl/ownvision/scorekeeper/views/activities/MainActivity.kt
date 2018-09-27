@@ -1,10 +1,10 @@
 package pl.ownvision.scorekeeper.views.activities
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
-import android.databinding.ObservableArrayList
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.databinding.ObservableArrayList
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -46,7 +46,7 @@ class MainActivity : BaseActivity() {
         }
 
         games_list.setHasFixedSize(true)
-        games_list.layoutManager = LinearLayoutManager(this)
+        games_list.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
 
         lastAdapter = LastAdapter(games, BR.game, true)
                 .map<Game, ItemGameLayoutBinding>(R.layout.item_game_layout) {

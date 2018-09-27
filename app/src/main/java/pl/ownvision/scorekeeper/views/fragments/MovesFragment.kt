@@ -1,10 +1,10 @@
 package pl.ownvision.scorekeeper.views.fragments
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
-import android.databinding.ObservableArrayList
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.databinding.ObservableArrayList
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,7 +40,7 @@ class MovesFragment : BaseGameFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         moves_list.setHasFixedSize(true)
-        moves_list.layoutManager = LinearLayoutManager(activity)
+        moves_list.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity)
 
         lastAdapter = LastAdapter(moves, BR.move)
                 .map<Move, ItemMoveLayoutBinding>(R.layout.item_move_layout) {

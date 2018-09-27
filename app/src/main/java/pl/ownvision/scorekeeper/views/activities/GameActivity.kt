@@ -2,7 +2,7 @@ package pl.ownvision.scorekeeper.views.activities
 
 import activitystarter.Arg
 import activitystarter.Optional
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem

@@ -1,15 +1,15 @@
 package pl.ownvision.scorekeeper.views.fragments
 
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import co.metalab.asyncawait.async
 import pl.ownvision.scorekeeper.core.App
 import pl.ownvision.scorekeeper.db.AppDatabase
 import pl.ownvision.scorekeeper.views.activities.GameActivity
 import javax.inject.Inject
 
-open class BaseFragment : Fragment() {
+open class BaseFragment : androidx.fragment.app.Fragment() {
 
     @Inject lateinit protected var database: AppDatabase
     @Inject lateinit protected var application: App

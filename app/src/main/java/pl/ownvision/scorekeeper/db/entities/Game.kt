@@ -1,6 +1,6 @@
 package pl.ownvision.scorekeeper.db.entities
 
-import android.arch.persistence.room.*
+import androidx.room.*
 
 @Entity(tableName = "games")
 class Game : BaseEntity() {

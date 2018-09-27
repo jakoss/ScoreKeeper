@@ -1,6 +1,6 @@
 package pl.ownvision.scorekeeper.db.converters
 
-import android.arch.persistence.room.TypeConverter
+import androidx.room.TypeConverter
 import org.joda.time.DateTime
 
 class DateTimeConverter {

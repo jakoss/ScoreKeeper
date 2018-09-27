@@ -1,7 +1,7 @@
 package pl.ownvision.scorekeeper.db.entities
 
-import android.arch.persistence.room.Ignore
-import android.arch.persistence.room.PrimaryKey
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
 import com.github.nitrico.lastadapter.StableId
 import org.joda.time.DateTime
 import pl.ownvision.scorekeeper.core.getFormattedLocal

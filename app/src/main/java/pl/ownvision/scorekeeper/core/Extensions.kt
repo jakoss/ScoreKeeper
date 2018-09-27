@@ -2,8 +2,8 @@ package pl.ownvision.scorekeeper.core
 
 import android.app.Activity
 import android.content.Context
-import android.support.annotation.StringRes
-import android.support.design.widget.Snackbar
+import androidx.annotation.StringRes
+import com.google.android.material.snackbar.Snackbar
 import android.text.InputType
 import android.view.View
 import android.widget.Toast

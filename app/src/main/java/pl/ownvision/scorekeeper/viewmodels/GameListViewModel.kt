@@ -1,6 +1,6 @@
 package pl.ownvision.scorekeeper.viewmodels
 
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.ViewModel
 import android.content.Context
 import pl.ownvision.scorekeeper.R
 import pl.ownvision.scorekeeper.db.daos.GameDao

@@ -1,5 +1,6 @@
 package pl.ownvision.scorekeeper.viewmodels
 
+/*
 import androidx.lifecycle.ViewModel
 import android.content.Context
 import com.github.mikephil.charting.data.*
@@ -100,3 +101,4 @@ class GameViewModel
 
     private fun playerExists(name: String) = playersDao.getPlayersWithName(gameId, name.trim()) == 1
 }
+        */

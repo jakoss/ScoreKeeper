@@ -7,11 +7,7 @@ import pl.ownvision.scorekeeper.db.converters.*
 import pl.ownvision.scorekeeper.db.daos.*
 import pl.ownvision.scorekeeper.db.entities.*
 
-@Database(entities = arrayOf(
-        Game::class,
-        Move::class,
-        Player::class
-), version = 1)
+@Database(entities = [Game::class, Move::class, Player::class], version = 1, exportSchema = false)
 @TypeConverters(DateTimeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     companion object {

@@ -1,10 +1,10 @@
 package pl.ownvision.scorekeeper.db.daos
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import io.reactivex.Observable
 import pl.ownvision.scorekeeper.db.entities.Game
 import pl.ownvision.scorekeeper.db.entities.Score
 
@@ -20,7 +20,7 @@ interface GameDao {
     fun get(id: Long): Game
 
     @Query("select * from games order by createdAt desc")
-    fun getAll(): LiveData<List<Game>>
+    fun getAll(): Observable<List<Game>>
 
     @Query("update games set name = :name where id = :id")
     fun setName(id: Long, name: String)
@@ -33,5 +33,5 @@ interface GameDao {
     group by m.playerId, p.name
     order by points desc
     """)
-    fun getScores(gameId: Long): LiveData<List<Score>>
+    fun getScores(gameId: Long): Observable<List<Score>>
 }

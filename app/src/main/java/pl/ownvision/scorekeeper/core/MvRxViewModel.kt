@@ -13,8 +13,9 @@ abstract class MvRxViewModel<S : MvRxState>(initialState: S) : BaseMvRxViewModel
     val errorSubject : PublishSubject<Throwable> = PublishSubject.create()
 
     protected fun runActionInBackground(action: () -> Unit) :Disposable = Single.fromCallable(action)
-            .doOnError { exception ->
+            .onErrorReturn { exception ->
                 errorSubject.onNext(exception)
+                Unit
             }
             .subscribeOn(Schedulers.io())
             .subscribe()

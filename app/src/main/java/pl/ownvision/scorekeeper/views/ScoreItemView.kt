@@ -7,37 +7,32 @@ import android.widget.FrameLayout
 import com.airbnb.epoxy.CallbackProp
 import com.airbnb.epoxy.ModelView
 import com.airbnb.epoxy.TextProp
-import kotlinx.android.synthetic.main.item_game_layout.view.*
+import kotlinx.android.synthetic.main.item_score_layout.view.*
 import pl.ownvision.scorekeeper.R
 
 @ModelView(autoLayout = ModelView.Size.MATCH_WIDTH_WRAP_HEIGHT)
-class GameItemView @JvmOverloads constructor(
+class ScoreItemView  @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet? = null,
         defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
     init {
-        inflate(context, R.layout.item_game_layout, this)
+        inflate(context, R.layout.item_score_layout, this)
     }
 
     @TextProp
-    fun setName(name: CharSequence) {
-        tvName.text = name
+    fun setTitle(title: CharSequence) {
+        tvScoreTitle.text = title
     }
 
     @TextProp
-    fun setCreatedAt(createdAt: CharSequence) {
-        tvCreatedAt.text = createdAt
+    fun setMoveCount(moveCount: CharSequence) {
+        tvMoveCount.text = moveCount
     }
 
     @CallbackProp
-    fun onOptionsClick(listener: View.OnClickListener?) {
-        textViewOptions.setOnClickListener(listener)
-    }
-
-    @CallbackProp
-    fun onItemClick(listener: OnClickListener?) {
-        card_view.setOnClickListener(listener)
+    fun onMoveClick(listener: View.OnClickListener?) {
+        buttonMove.setOnClickListener(listener)
     }
 }

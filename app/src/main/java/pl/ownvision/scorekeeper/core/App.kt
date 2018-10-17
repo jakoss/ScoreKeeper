@@ -20,10 +20,7 @@ class App : Application(){
 
     private val applicationModule = module {
         val appDatabase = Room.databaseBuilder(this@App, AppDatabase::class.java, AppDatabase.DATABASE_NAME).build()
-        single { appDatabase.gameDao() }
-        single { appDatabase.playersDao() }
-        single { appDatabase.movesDao() }
-        single { appDatabase.statsDao() }
+        single { appDatabase }
     }
 
     override fun onCreate() {

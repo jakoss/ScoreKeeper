@@ -1,5 +1,6 @@
 package pl.ownvision.scorekeeper.core
 
+import android.app.Activity
 import android.content.Context
 import androidx.annotation.StringRes
 import com.google.android.material.snackbar.Snackbar
@@ -48,16 +49,16 @@ fun BaseFragment.alertWithTitle(title: String, text: String) {
             .show()
 }
 
-fun BaseFragment.alert(@StringRes text: Int) = alert(getString(text))
-fun BaseFragment.alert(text: String) {
-    Alerter.create(this.activity)
+fun Activity.alert(@StringRes text: Int) = alert(getString(text))
+fun Activity.alert(text: String) {
+    Alerter.create(this)
             .setText(text)
             .enableSwipeToDismiss()
             .setBackgroundColorRes(R.color.colorPrimary)
             .show()
 }
 
-fun BaseFragment.showAbout() {
+fun Activity.showAbout() {
     val libsArray = this.resources.getStringArray(R.array.libraries)
     LibsBuilder()
             .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
@@ -66,7 +67,12 @@ fun BaseFragment.showAbout() {
             .withAboutVersionShown(true)
             .withAutoDetect(false)
             .withLibraries(*libsArray)
-            .start(this.activity)
+            .start(this)
 }
 
 fun DateTime.getFormattedLocal(): String = DateTimeFormat.forStyle("SM").print(this)
+
+fun <T> Collection<T>?.isNullOrEmpty() : Boolean {
+    if (this == null) return true
+    return this.isEmpty()
+}

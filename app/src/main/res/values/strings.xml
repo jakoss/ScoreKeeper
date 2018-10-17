@@ -29,15 +29,15 @@
     <string name="new_player">Nowy gracz</string>
     <string name="validation_name_cannot_be_empty">Nazwa nie może być pusta</string>
     <string name="validation_name_already_taken">Nazwa jest już zajęta</string>
-    <string name="no_players_prompt">Brak graczy\nDodaj nowego gracza na zakładce graczy</string>
-    <string name="add_new_player_prompt_button">Dodaj nowego gracza</string>
+    <string name="add_new_player">Dodaj nowego gracza</string>
 
     <!-- GAME -->
-    <string name="new_game">Nowa gra</string>
+    <string name="reset_game_prompt">Czy na pewno chcesz zrestartować grę?\nWszystkie ruchy i gracze zostaną usunięci</string>
     <string name="move">Ruch</string>
     <string name="score">Wynik</string>
     <string name="no_moves">Nie wykonano żadnych ruchów</string>
     <string name="move_count">"Ilość wykonanych ruchów: %1$d"</string>
     <string name="score_title">%1$s: %2$d</string>
     <string name="validation_move_zero">Ilość punktów nie może być inna od zera</string>
+    <string name="reset_score">Resetuj wynik</string>
 </resources>

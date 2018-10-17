@@ -7,14 +7,13 @@ import pl.ownvision.scorekeeper.db.converters.*
 import pl.ownvision.scorekeeper.db.daos.*
 import pl.ownvision.scorekeeper.db.entities.*
 
-@Database(entities = [Game::class, Move::class, Player::class], version = 1, exportSchema = false)
+@Database(entities = [Move::class, Player::class], version = 1, exportSchema = false)
 @TypeConverters(DateTimeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     companion object {
-        val DATABASE_NAME = "score-keeper-db"
+        const val DATABASE_NAME = "score-keeper-db-v2"
     }
 
-    abstract fun gameDao(): GameDao
     abstract fun movesDao(): MovesDao
     abstract fun playersDao(): PlayersDao
     abstract fun statsDao(): StatsDao

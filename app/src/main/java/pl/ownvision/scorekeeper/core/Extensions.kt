@@ -39,6 +39,12 @@ fun Context.showInputDialog(@StringRes title: Int, @StringRes positive: Int, pla
             .show()
 }
 
+fun Context.showConfirmationDialog(@StringRes question: Int, callback: () -> Unit) = MaterialDialog(this)
+        .title(question)
+        .positiveButton(R.string.yes) { callback() }
+        .negativeButton(R.string.no)
+        .show()
+
 fun BaseFragment.alertWithTitle(@StringRes title: Int, @StringRes text: Int) = alertWithTitle(getString(title), getString(text))
 fun BaseFragment.alertWithTitle(title: String, text: String) {
     Alerter.create(this.activity)

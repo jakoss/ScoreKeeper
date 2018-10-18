@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import pl.ownvision.scorekeeper.core.ScreenEnum
 import pl.ownvision.scorekeeper.core.alert
 import pl.ownvision.scorekeeper.core.showAbout
+import pl.ownvision.scorekeeper.core.showConfirmationDialog
 import pl.ownvision.scorekeeper.exceptions.ValidationException
 
 class MainActivity : BaseMvRxActivity() {
@@ -82,28 +83,18 @@ class MainActivity : BaseMvRxActivity() {
                 true
             }
             R.id.reset_game -> {
-                resetGame()
+                showConfirmationDialog(R.string.reset_game_prompt) {
+                    gameViewModel.resetGame()
+                }
+                true
+            }
+            R.id.reset_score -> {
+                showConfirmationDialog(R.string.reset_score_prompt) {
+                    gameViewModel.resetScore()
+                }
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    private fun resetGame() {
-        // TODO : move generic yes/no handler to extensions
-        // TODO : separate reset all and reset just scores (leave players)
-        MaterialDialog(this)
-                .title(R.string.reset_game_prompt)
-                .positiveButton(R.string.yes) {
-                    try {
-                        gameViewModel.resetGame()
-                    } catch (e: Exception) {
-                        this@MainActivity.alert(R.string.error_deleting)
-                        XLog.e("Error removing game", e)
-                        Crashlytics.logException(e)
-                    }
-                }
-                .negativeButton(R.string.no)
-                .show()
     }
 }

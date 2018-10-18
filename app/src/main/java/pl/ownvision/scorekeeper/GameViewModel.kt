@@ -37,6 +37,20 @@ class GameViewModel(
         }
     }
 
+    fun addMove(playerId: Long, points: Int) {
+        runActionInBackground {
+            validateMoveScore(points)
+            val move = Move(playerId = playerId, score = points, playerName = "")
+            database.movesDao().insert(move)
+        }
+    }
+
+    fun resetScore() {
+        runActionInBackground {
+            database.movesDao().resetMoves()
+        }
+    }
+
     fun resetGame() {
         runActionInBackground {
             database.clearAllTables()

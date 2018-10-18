@@ -30,4 +30,7 @@ interface MovesDao {
     order by points desc
     """)
     fun getScores(): Observable<List<Score>>
+
+    @Query("delete from moves where score != 0")
+    fun resetMoves()
 }

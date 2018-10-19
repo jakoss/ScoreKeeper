@@ -10,5 +10,5 @@ data class GameState(
         val screen: ScreenEnum = ScreenEnum.SCORE,
         val scores: Async<List<Score>> = Uninitialized,
         val moves: Async<List<Move>> = Uninitialized,
-        val players: Async<List<Player>> = Uninitialized
+        val timeline: Async<List<Move>> = Uninitialized
 ) : MvRxState

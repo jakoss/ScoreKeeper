@@ -26,6 +26,9 @@ class GameViewModel(
         database.movesDao()
                 .getMoves()
                 .execute { copy(moves = it) }
+        database.statsDao()
+                .getTimeline()
+                .execute { copy(timeline = it) }
     }
 
     fun changeScreen(screen: ScreenEnum) = setState { copy(screen = screen) }

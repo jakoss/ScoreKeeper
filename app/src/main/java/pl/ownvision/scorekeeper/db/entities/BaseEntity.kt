@@ -1,18 +1,13 @@
 package pl.ownvision.scorekeeper.db.entities
 
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import com.github.nitrico.lastadapter.StableId
 import org.joda.time.DateTime
 import pl.ownvision.scorekeeper.core.getFormattedLocal
 
-abstract class BaseEntity: StableId {
+abstract class BaseEntity {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
     var createdAt: DateTime = DateTime()
 
-    // stable id for LastAdapter
-    @Ignore
-    override val stableId: Long = id
     fun getCreatedLocal() = createdAt.getFormattedLocal()
 }

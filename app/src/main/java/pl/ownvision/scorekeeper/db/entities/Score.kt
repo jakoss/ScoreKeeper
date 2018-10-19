@@ -1,6 +1,6 @@
 package pl.ownvision.scorekeeper.db.entities
 
-class Score (
+data class Score (
         var playerId: Long,
         var playerName: String,
         var points: Int,

@@ -6,8 +6,8 @@ import androidx.annotation.StringRes
 import com.google.android.material.snackbar.Snackbar
 import android.text.InputType
 import android.view.View
-import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.input.input
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.LibsBuilder
 import com.tapadoo.alerter.Alerter
@@ -15,35 +15,39 @@ import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import pl.ownvision.scorekeeper.R
 
-
-fun Context.toast(text: String, duration: Int = Toast.LENGTH_LONG) = Toast.makeText(this, text, duration).show()
-
-fun Activity.snackbar(@StringRes text: Int, duration: Int = Snackbar.LENGTH_LONG) {
+fun BaseFragment.snackbar(@StringRes text: Int, duration: Int = Snackbar.LENGTH_LONG) {
     snackbar(getString(text), duration)
 }
 
-fun Activity.snackbar(text: String, duration: Int = Snackbar.LENGTH_LONG) {
-    val view = this.findViewById<View>(android.R.id.content)
-    val snackBar = Snackbar.make(view, text, duration)
+fun BaseFragment.snackbar(text: String, duration: Int = Snackbar.LENGTH_LONG) {
+    this.activity?.findViewById<View>(android.R.id.content)?.let { view ->
+        val snackBar = Snackbar.make(view, text, duration)
 
-    snackBar.setAction("OK") { snackBar.dismiss() }
-    snackBar.show()
+        snackBar.setAction("OK") { snackBar.dismiss() }
+        snackBar.show()
+    }
+
 }
 
-fun Activity.showInputDialog(@StringRes title: Int, @StringRes positive: Int, placeholder: String, value: String?, callback: (input: String) -> Unit) {
-    MaterialDialog.Builder(this)
+fun Context.showInputDialog(@StringRes title: Int, @StringRes positive: Int, placeholder: String, value: String?, callback: (input: String) -> Unit) {
+    MaterialDialog(this)
             .title(title)
-            .inputType(InputType.TYPE_CLASS_TEXT)
-            .input(placeholder, value, { _, input ->
+            .input(hint = placeholder, prefill = value, inputType = InputType.TYPE_CLASS_TEXT) { _, input ->
                 callback(input.toString())
-            })
-            .positiveText(positive)
+            }
+            .positiveButton(positive)
             .show()
 }
 
-fun Activity.alertWithTitle(@StringRes title: Int, @StringRes text: Int) = alertWithTitle(getString(title), getString(text))
-fun Activity.alertWithTitle(title: String, text: String) {
-    Alerter.create(this)
+fun Context.showConfirmationDialog(@StringRes question: Int, callback: () -> Unit) = MaterialDialog(this)
+        .title(question)
+        .positiveButton(R.string.yes) { callback() }
+        .negativeButton(R.string.no)
+        .show()
+
+fun BaseFragment.alertWithTitle(@StringRes title: Int, @StringRes text: Int) = alertWithTitle(getString(title), getString(text))
+fun BaseFragment.alertWithTitle(title: String, text: String) {
+    Alerter.create(this.activity)
             .setTitle(title)
             .setText(text)
             .enableSwipeToDismiss()
@@ -73,3 +77,8 @@ fun Activity.showAbout() {
 }
 
 fun DateTime.getFormattedLocal(): String = DateTimeFormat.forStyle("SM").print(this)
+
+fun <T> Collection<T>?.isNullOrEmpty() : Boolean {
+    if (this == null) return true
+    return this.isEmpty()
+}

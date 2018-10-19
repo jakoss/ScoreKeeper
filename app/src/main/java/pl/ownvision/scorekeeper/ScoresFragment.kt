@@ -33,31 +33,32 @@ class ScoresFragment : BaseEpoxyFragment() {
     }
 
     override fun epoxyController() = simpleController(viewModel) { state ->
-        if (state.scores.complete) {
-            val scores = state.scores()
-            if (scores.isNullOrEmpty()){
-                viewNoPlayer {
-                    id("viewNoPlayer")
-                    onClick { _ ->
-                        addPlayer()
-                    }
-                }
-            }else{
-                // the !! operator won't be needed after Kotlin 1.3 release
-                scores!!.sortedByDescending { it.points }.forEach { score ->
-                    scoreItemView {
-                        id(score.playerId)
-                        title(R.string.score_title, score.playerName, score.points)
-                        moveCount(R.string.move_count, score.moveCount)
-                        onMoveClick { _ ->
-                            showMoveDialog(score)
-                        }
-                    }
-                }
-            }
-        } else {
+        if (!state.scores.complete) {
             viewLoader {
                 id("loader")
+            }
+            return@simpleController
+        }
+        val scores = state.scores()
+        if (scores.isNullOrEmpty()){
+            viewNoPlayer {
+                id("viewNoPlayer")
+                onClick { _ ->
+                    addPlayer()
+                }
+            }
+            return@simpleController
+        }
+
+        // the !! operator won't be needed after Kotlin 1.3 release
+        scores!!.sortedByDescending { it.points }.forEach { score ->
+            scoreItemView {
+                id(score.playerId)
+                title(R.string.score_title, score.playerName, score.points)
+                moveCount(R.string.move_count, score.moveCount)
+                onMoveClick { _ ->
+                    showMoveDialog(score)
+                }
             }
         }
     }

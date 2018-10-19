@@ -1,7 +1,6 @@
 package pl.ownvision.scorekeeper.core
 
 import android.app.Application
-import android.content.Context
 import androidx.room.Room
 import com.crashlytics.android.Crashlytics
 import com.crashlytics.android.core.CrashlyticsCore

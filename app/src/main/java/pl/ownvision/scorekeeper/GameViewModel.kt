@@ -23,6 +23,9 @@ class GameViewModel(
         database.movesDao()
                 .getScores()
                 .execute { copy(scores = it) }
+        database.movesDao()
+                .getMoves()
+                .execute { copy(moves = it) }
     }
 
     fun changeScreen(screen: ScreenEnum) = setState { copy(screen = screen) }
@@ -42,6 +45,12 @@ class GameViewModel(
             validateMoveScore(points)
             val move = Move(playerId = playerId, score = points, playerName = "")
             database.movesDao().insert(move)
+        }
+    }
+
+    fun removeMove(move: Move) {
+        runActionInBackground {
+            database.movesDao().delete(move)
         }
     }
 

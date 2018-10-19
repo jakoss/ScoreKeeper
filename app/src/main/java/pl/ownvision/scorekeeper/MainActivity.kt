@@ -43,10 +43,9 @@ class MainActivity : BaseMvRxActivity() {
 
         gameViewModel.selectSubscribe(this, GameState::screen) { screen ->
             val fragment = when (screen) {
-                // TODO : pin proper fragments
                 ScreenEnum.SCORE -> ScoresFragment()
-                ScreenEnum.HISTORY -> ScoresFragment()
-                ScreenEnum.STATS -> ScoresFragment()
+                ScreenEnum.HISTORY -> MovesFragment()
+                ScreenEnum.STATS -> StatsFragment()
             }
             supportFragmentManager.transaction {
                 replace(R.id.fragment_container, fragment)
@@ -55,10 +54,10 @@ class MainActivity : BaseMvRxActivity() {
 
         bottom_navigation.setOnNavigationItemSelectedListener { item ->
             val screen = when (item.itemId) {
-                R.id.menu_game_score -> ScreenEnum.STATS
+                R.id.menu_game_score -> ScreenEnum.SCORE
                 R.id.menu_game_rounds -> ScreenEnum.HISTORY
                 R.id.menu_game_stats -> ScreenEnum.STATS
-                else -> ScreenEnum.STATS
+                else -> ScreenEnum.SCORE
             }
             gameViewModel.changeScreen(screen)
             true

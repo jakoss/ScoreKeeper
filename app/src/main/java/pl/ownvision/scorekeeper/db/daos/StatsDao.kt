@@ -1,15 +1,12 @@
 package pl.ownvision.scorekeeper.db.daos
 
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Query
+import androidx.room.Dao
+import androidx.room.Query
+import io.reactivex.Observable
 import pl.ownvision.scorekeeper.db.entities.Move
-
-/**
- * Created by Jakub on 26.06.2017.
- */
 
 @Dao
 interface StatsDao {
-    @Query("select m.id, m.playerId, p.name as playerName, m.score, m.gameId, m.createdAt from moves as m join players as p on p.id = m.playerId where m.gameId = :gameId")
-    fun getTimeline(gameId: Long): List<Move>
+    @Query("select m.id, m.playerId, p.name as playerName, m.score, m.createdAt from moves as m join players as p on p.id = m.playerId")
+    fun getTimeline(): Observable<List<Move>>
 }

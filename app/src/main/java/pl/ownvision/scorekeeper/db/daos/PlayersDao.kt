@@ -1,16 +1,11 @@
 package pl.ownvision.scorekeeper.db.daos
 
-import android.arch.lifecycle.LiveData
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Delete
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.Query
-import pl.ownvision.scorekeeper.db.entities.Move
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.Query
+import io.reactivex.Observable
 import pl.ownvision.scorekeeper.db.entities.Player
-
-/**
- * Created by Jakub on 26.06.2017.
- */
 
 @Dao
 interface PlayersDao {
@@ -20,15 +15,15 @@ interface PlayersDao {
     @Delete
     fun delete(player: Player)
 
-    @Query("select * from players where gameId = :gameId")
-    fun getAll(gameId: Long): LiveData<List<Player>>
+    @Query("select * from players")
+    fun getAll(): Observable<List<Player>>
 
     @Query("update players set name = :name where id = :id")
     fun renamePlayer(id: Long, name: String)
 
-    @Query("select count(*) from players where gameId = :gameId and name = :name")
-    fun getPlayersWithName(gameId: Long, name: String): Int
+    @Query("select count(*) from players where name = :name")
+    fun getPlayersWithName(name: String): Int
 
-    @Query("select count(*) from players where gameId = :gameId")
-    fun getPlayerCount(gameId: Long): Int
+    @Query("select count(*) from players")
+    fun getPlayerCount(): Int
 }

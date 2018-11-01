@@ -6,7 +6,6 @@ import com.airbnb.mvrx.activityViewModel
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineDataSet
 import pl.ownvision.scorekeeper.core.BaseEpoxyFragment
-import pl.ownvision.scorekeeper.core.isNullOrEmpty
 import pl.ownvision.scorekeeper.core.simpleController
 import pl.ownvision.scorekeeper.views.viewChart
 import pl.ownvision.scorekeeper.views.viewLoader
@@ -37,7 +36,7 @@ class StatsFragment : BaseEpoxyFragment() {
             return@simpleController
         }
 
-        val moves = timeline!!.groupBy { it.playerName }
+        val moves = timeline.groupBy { it.playerName }
 
         val colors = requireActivity().resources.getIntArray(R.array.rainbow)
         val lineDataSets = mutableListOf<LineDataSet>()

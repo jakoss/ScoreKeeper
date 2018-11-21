@@ -50,8 +50,7 @@ class ScoresFragment : BaseEpoxyFragment() {
             return@simpleController
         }
 
-        // the !! operator won't be needed after Kotlin 1.3 release
-        scores!!.sortedByDescending { it.points }.forEach { score ->
+        scores.sortedByDescending { it.points }.forEach { score ->
             scoreItemView {
                 id(score.playerId)
                 title(R.string.score_title, score.playerName, score.points)

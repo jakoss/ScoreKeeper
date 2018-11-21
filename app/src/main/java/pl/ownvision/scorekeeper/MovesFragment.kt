@@ -5,7 +5,6 @@ import android.view.View
 import android.widget.PopupMenu
 import com.airbnb.mvrx.activityViewModel
 import pl.ownvision.scorekeeper.core.BaseEpoxyFragment
-import pl.ownvision.scorekeeper.core.isNullOrEmpty
 import pl.ownvision.scorekeeper.core.simpleController
 import pl.ownvision.scorekeeper.db.entities.Move
 import pl.ownvision.scorekeeper.views.moveItemView
@@ -37,7 +36,7 @@ class MovesFragment : BaseEpoxyFragment() {
             return@simpleController
         }
 
-        moves!!.sortedByDescending { it.createdAt }.forEach { move ->
+        moves.sortedByDescending { it.createdAt }.forEach { move ->
             moveItemView {
                 id(move.id)
                 title(getString(R.string.score_title, move.playerName, move.score))

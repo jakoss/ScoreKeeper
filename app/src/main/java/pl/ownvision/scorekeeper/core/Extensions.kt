@@ -77,8 +77,3 @@ fun Activity.showAbout() {
 }
 
 fun DateTime.getFormattedLocal(): String = DateTimeFormat.forStyle("SM").print(this)
-
-fun <T> Collection<T>?.isNullOrEmpty() : Boolean {
-    if (this == null) return true
-    return this.isEmpty()
-}

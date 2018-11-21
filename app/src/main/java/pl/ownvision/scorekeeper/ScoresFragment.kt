@@ -74,16 +74,12 @@ class ScoresFragment : BaseEpoxyFragment() {
         input.setText("0")
         val nameTextView = dialogView.findViewById<TextView>(R.id.dialog_points_player)
         nameTextView.text = score.playerName
-        /*
+        dialog.clearPositiveListeners()
         dialog.positiveButton {
             viewModel.addMove(score.playerId, input.text.toString().toInt())
         }
-        */
+
         dialog.show()
-        dialog.getActionButton(WhichButton.POSITIVE).setOnClickListener {
-            viewModel.addMove(score.playerId, input.text.toString().toInt())
-            dialog.dismiss()
-        }
     }
 
     private fun setupPointsDialog(){

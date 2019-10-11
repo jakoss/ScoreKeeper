@@ -1,7 +1,6 @@
 package pl.ownvision.scorekeeper.core
 
 import android.app.Application
-import androidx.room.Room
 import com.crashlytics.android.Crashlytics
 import com.crashlytics.android.core.CrashlyticsCore
 import com.elvishew.xlog.LogConfiguration
@@ -10,17 +9,12 @@ import com.elvishew.xlog.XLog
 import com.facebook.stetho.Stetho
 import io.fabric.sdk.android.Fabric
 import net.danlew.android.joda.JodaTimeAndroid
-import org.koin.android.ext.android.startKoin
-import org.koin.dsl.module.module
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
 import pl.ownvision.scorekeeper.BuildConfig
-import pl.ownvision.scorekeeper.db.AppDatabase
 
-class App : Application(){
-
-    private val applicationModule = module {
-        val appDatabase = Room.databaseBuilder(this@App, AppDatabase::class.java, AppDatabase.DATABASE_NAME).build()
-        single { appDatabase }
-    }
+class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
@@ -29,7 +23,11 @@ class App : Application(){
         Stetho.initializeWithDefaults(this)
         JodaTimeAndroid.init(this)
 
-        startKoin(this, listOf(applicationModule))
+        startKoin {
+            androidLogger()
+            androidContext(this@App)
+            modules(applicationModule)
+        }
 
         val logConfig = LogConfiguration.Builder()
                 .logLevel(LogLevel.ALL)

@@ -1,9 +1,8 @@
 package pl.ownvision.scorekeeper
 
 import android.content.Context
-import androidx.fragment.app.FragmentActivity
-import com.airbnb.mvrx.BaseMvRxViewModel
 import com.airbnb.mvrx.MvRxViewModelFactory
+import com.airbnb.mvrx.ViewModelContext
 import org.koin.android.ext.android.inject
 import pl.ownvision.scorekeeper.core.MvRxViewModel
 import pl.ownvision.scorekeeper.core.ScreenEnum
@@ -80,10 +79,10 @@ class GameViewModel(
 
     private fun playerExists(name: String) = database.playersDao().getPlayersWithName(name.trim()) == 1
 
-    companion object : MvRxViewModelFactory<GameState> {
-        @JvmStatic override fun create(activity: FragmentActivity, state: GameState): BaseMvRxViewModel<GameState> {
-            val database by activity.inject<AppDatabase>()
-            val context by activity.inject<Context>()
+    companion object : MvRxViewModelFactory<GameViewModel, GameState> {
+        override fun create(viewModelContext: ViewModelContext, state: GameState): GameViewModel {
+            val database by viewModelContext.activity.inject<AppDatabase>()
+            val context by viewModelContext.activity.inject<Context>()
             return GameViewModel(state, database, context)
         }
     }
